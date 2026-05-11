@@ -55,6 +55,38 @@ Optional future work or known next steps.
 
 # Change History
 
+## CHG-003 — 2026-05-11 — Repository scaffold
+
+### Summary
+Initialized the full pnpm monorepo structure with three workspace packages.
+
+### Why
+First implementation milestone — establishes the runnable skeleton before any feature work begins.
+
+### Files Affected
+- `pnpm-workspace.yaml` — workspace package roots
+- `package.json` — root scripts, esbuild build approval
+- `tsconfig.json` — base TypeScript config (strict mode)
+- `packages/shared/` — canonical graph contracts: `GraphNode`, `GraphEdge`, `ResourceType`, `RelationshipType`
+- `apps/frontend/` — Vite + React + TypeScript + Tailwind + React Flow scaffold
+- `apps/backend/` — Node.js + Express + TypeScript scaffold
+
+### Architectural Impact
+- `packages/shared` is the authoritative source for all graph contracts. Frontend and backend import from `@azmap/shared`.
+- All three packages typecheck clean with TypeScript strict mode.
+- Backend health endpoint confirmed live at `http://localhost:3001/health`.
+
+### Validation
+- `pnpm typecheck` passes across all three packages
+- `GET /health` returns `{"status":"ok","service":"azmap-backend"}`
+- Frontend starts via `pnpm dev:frontend`
+
+### Follow-Up Work
+- Define TypeScript standards, testing strategy, logging strategy (Phase 1)
+- Implement import pipeline (Phase 2)
+
+---
+
 ## CHG-001 — 2026-05-10 — Repository Governance Foundations
 
 ### Summary
