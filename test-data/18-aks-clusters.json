@@ -1,0 +1,128 @@
+[
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.ContainerService/managedClusters/aks-prod-001",
+    "name": "aks-prod-001",
+    "type": "Microsoft.ContainerService/managedClusters",
+    "location": "uksouth",
+    "resourceGroup": "rg-compute",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "platform", "costCenter": "CC001" },
+    "identity": {
+      "type": "UserAssigned",
+      "userAssignedIdentities": {
+        "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.ManagedIdentity/userAssignedIdentities/mi-aks-prod": {
+          "principalId": "aaaaaaaa-0001-0001-0001-aaaaaaaaaaaa",
+          "clientId": "bbbbbbbb-0001-0001-0001-bbbbbbbbbbbb"
+        }
+      }
+    },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "powerState": { "code": "Running" },
+      "kubernetesVersion": "1.29.2",
+      "currentKubernetesVersion": "1.29.2",
+      "dnsPrefix": "aks-prod-001",
+      "fqdn": "aks-prod-001-uksouth.hcp.uksouth.azmk8s.io",
+      "nodeResourceGroup": "MC_rg-compute_aks-prod-001_uksouth",
+      "enableRBAC": true,
+      "supportPlan": "KubernetesOfficial",
+      "agentPoolProfiles": [
+        {
+          "name": "system",
+          "count": 3,
+          "vmSize": "Standard_D4s_v5",
+          "osDiskSizeGB": 128,
+          "osDiskType": "Managed",
+          "kubeletDiskType": "OS",
+          "vnetSubnetID": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app/subnets/snet-aks",
+          "maxPods": 30,
+          "type": "VirtualMachineScaleSets",
+          "maxCount": 5,
+          "minCount": 1,
+          "enableAutoScaling": true,
+          "mode": "System",
+          "osType": "Linux",
+          "osSKU": "Ubuntu",
+          "nodeLabels": { "nodepool": "system" },
+          "nodeTaints": ["CriticalAddonsOnly=true:NoSchedule"],
+          "provisioningState": "Succeeded",
+          "powerState": { "code": "Running" },
+          "orchestratorVersion": "1.29.2",
+          "currentOrchestratorVersion": "1.29.2",
+          "enableNodePublicIP": false
+        },
+        {
+          "name": "apppool",
+          "count": 5,
+          "vmSize": "Standard_D8s_v5",
+          "osDiskSizeGB": 128,
+          "osDiskType": "Managed",
+          "kubeletDiskType": "OS",
+          "vnetSubnetID": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app/subnets/snet-aks",
+          "maxPods": 30,
+          "type": "VirtualMachineScaleSets",
+          "maxCount": 20,
+          "minCount": 3,
+          "enableAutoScaling": true,
+          "mode": "User",
+          "osType": "Linux",
+          "osSKU": "Ubuntu",
+          "nodeLabels": { "nodepool": "apppool" },
+          "provisioningState": "Succeeded",
+          "powerState": { "code": "Running" },
+          "orchestratorVersion": "1.29.2",
+          "currentOrchestratorVersion": "1.29.2",
+          "enableNodePublicIP": false
+        }
+      ],
+      "networkProfile": {
+        "networkPlugin": "azure",
+        "networkPolicy": "calico",
+        "networkMode": "transparent",
+        "serviceCidr": "10.100.0.0/16",
+        "dnsServiceIP": "10.100.0.10",
+        "dockerBridgeCidr": "172.17.0.1/16",
+        "outboundType": "userDefinedRouting",
+        "loadBalancerSku": "standard"
+      },
+      "addonProfiles": {
+        "omsagent": {
+          "enabled": true,
+          "config": {
+            "logAnalyticsWorkspaceResourceID": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-apps/providers/Microsoft.OperationalInsights/workspaces/law-prod-001"
+          }
+        },
+        "azurepolicy": {
+          "enabled": true
+        },
+        "ingressApplicationGateway": {
+          "enabled": true,
+          "config": {
+            "applicationGatewayId": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod"
+          },
+          "identity": {
+            "clientId": "bbbbbbbb-0001-0001-0001-bbbbbbbbbbbb",
+            "objectId": "aaaaaaaa-0001-0001-0001-aaaaaaaaaaaa"
+          }
+        }
+      },
+      "aadProfile": {
+        "managed": true,
+        "enableAzureRBAC": true,
+        "tenantID": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
+      },
+      "autoScalerProfile": {
+        "scale-down-delay-after-add": "10m",
+        "scale-down-unneeded-time": "10m",
+        "scan-interval": "10s"
+      },
+      "disableLocalAccounts": true,
+      "securityProfile": {
+        "defender": {
+          "logAnalyticsWorkspaceResourceId": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-apps/providers/Microsoft.OperationalInsights/workspaces/law-prod-001",
+          "securityMonitoring": { "enabled": true }
+        }
+      }
+    }
+  }
+]

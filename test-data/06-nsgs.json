@@ -1,0 +1,1373 @@
+[
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/networkSecurityGroups/nsg-snet-mgmt",
+    "name": "nsg-snet-mgmt",
+    "type": "Microsoft.Network/networkSecurityGroups",
+    "location": "uksouth",
+    "resourceGroup": "rg-network",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "network", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "securityRules": [
+        {
+          "name": "Allow-RDP-From-Jumpbox",
+          "properties": {
+            "priority": 100,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "3389",
+            "sourceAddressPrefix": "10.0.5.0/28",
+            "destinationAddressPrefix": "*",
+            "description": "Allow RDP from jumpbox subnet",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-SSH-From-Jumpbox",
+          "properties": {
+            "priority": 110,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "22",
+            "sourceAddressPrefix": "10.0.5.0/28",
+            "destinationAddressPrefix": "*",
+            "description": "Allow SSH from jumpbox subnet",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-HTTPS-From-AzureMonitor",
+          "properties": {
+            "priority": 200,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "443",
+            "sourceAddressPrefix": "AzureMonitor",
+            "destinationAddressPrefix": "*",
+            "description": "Allow monitoring agent communication",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-AzureLoadBalancer",
+          "properties": {
+            "priority": 300,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "AzureLoadBalancer",
+            "destinationAddressPrefix": "*",
+            "description": "Allow Azure Load Balancer health probes",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Deny-All-Inbound",
+          "properties": {
+            "priority": 4096,
+            "direction": "Inbound",
+            "access": "Deny",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Deny all inbound traffic",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-All-Outbound",
+          "properties": {
+            "priority": 100,
+            "direction": "Outbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Allow all outbound traffic via firewall",
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "subnets": [
+        { "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-hub/subnets/snet-mgmt" }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/networkSecurityGroups/nsg-snet-jumpbox",
+    "name": "nsg-snet-jumpbox",
+    "type": "Microsoft.Network/networkSecurityGroups",
+    "location": "uksouth",
+    "resourceGroup": "rg-network",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "network", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "securityRules": [
+        {
+          "name": "Allow-Bastion-Control",
+          "properties": {
+            "priority": 100,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRanges": ["65200-65535"],
+            "sourceAddressPrefix": "AzureLoadBalancer",
+            "destinationAddressPrefix": "*",
+            "description": "Allow Bastion host plane traffic",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-RDP-From-CorpNetwork",
+          "properties": {
+            "priority": 200,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "3389",
+            "sourceAddressPrefix": "10.0.0.0/8",
+            "destinationAddressPrefix": "*",
+            "description": "Allow RDP from corporate network",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-SSH-From-CorpNetwork",
+          "properties": {
+            "priority": 210,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "22",
+            "sourceAddressPrefix": "10.0.0.0/8",
+            "destinationAddressPrefix": "*",
+            "description": "Allow SSH from corporate network",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Deny-Internet-Inbound",
+          "properties": {
+            "priority": 1000,
+            "direction": "Inbound",
+            "access": "Deny",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "Internet",
+            "destinationAddressPrefix": "*",
+            "description": "Deny all internet inbound",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-All-Outbound",
+          "properties": {
+            "priority": 100,
+            "direction": "Outbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Allow all outbound",
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "subnets": [
+        { "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-hub/subnets/snet-jumpbox" }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/networkSecurityGroups/nsg-snet-web",
+    "name": "nsg-snet-web",
+    "type": "Microsoft.Network/networkSecurityGroups",
+    "location": "uksouth",
+    "resourceGroup": "rg-network",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "platform", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "securityRules": [
+        {
+          "name": "Allow-HTTP-From-AppGW",
+          "properties": {
+            "priority": 100,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "80",
+            "sourceAddressPrefix": "10.1.4.0/26",
+            "destinationAddressPrefix": "*",
+            "description": "Allow HTTP from Application Gateway subnet",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-HTTPS-From-AppGW",
+          "properties": {
+            "priority": 110,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "443",
+            "sourceAddressPrefix": "10.1.4.0/26",
+            "destinationAddressPrefix": "*",
+            "description": "Allow HTTPS from Application Gateway subnet",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-LB-HealthProbes",
+          "properties": {
+            "priority": 200,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "AzureLoadBalancer",
+            "destinationAddressPrefix": "*",
+            "description": "Allow Azure Load Balancer health probes",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Deny-Direct-Internet",
+          "properties": {
+            "priority": 1000,
+            "direction": "Inbound",
+            "access": "Deny",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "Internet",
+            "destinationAddressPrefix": "*",
+            "description": "Deny direct internet inbound",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-All-Outbound",
+          "properties": {
+            "priority": 100,
+            "direction": "Outbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Allow all outbound via firewall UDR",
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "subnets": [
+        { "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app/subnets/snet-web" }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/networkSecurityGroups/nsg-snet-api",
+    "name": "nsg-snet-api",
+    "type": "Microsoft.Network/networkSecurityGroups",
+    "location": "uksouth",
+    "resourceGroup": "rg-network",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "platform", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "securityRules": [
+        {
+          "name": "Allow-HTTPS-From-Web",
+          "properties": {
+            "priority": 100,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "443",
+            "sourceAddressPrefix": "10.1.1.0/24",
+            "destinationAddressPrefix": "*",
+            "description": "Allow HTTPS from web subnet",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-API-From-Web",
+          "properties": {
+            "priority": 110,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "8080",
+            "sourceAddressPrefix": "10.1.1.0/24",
+            "destinationAddressPrefix": "*",
+            "description": "Allow API port from web subnet",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-HTTPS-From-AKS",
+          "properties": {
+            "priority": 120,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRanges": ["443", "8080"],
+            "sourceAddressPrefix": "10.1.3.0/24",
+            "destinationAddressPrefix": "*",
+            "description": "Allow traffic from AKS subnet",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Deny-Internet-Inbound",
+          "properties": {
+            "priority": 1000,
+            "direction": "Inbound",
+            "access": "Deny",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "Internet",
+            "destinationAddressPrefix": "*",
+            "description": "Deny all internet inbound",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-All-Outbound",
+          "properties": {
+            "priority": 100,
+            "direction": "Outbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Allow all outbound",
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "subnets": [
+        { "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app/subnets/snet-api" }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/networkSecurityGroups/nsg-snet-aks",
+    "name": "nsg-snet-aks",
+    "type": "Microsoft.Network/networkSecurityGroups",
+    "location": "uksouth",
+    "resourceGroup": "rg-network",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "platform", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "securityRules": [
+        {
+          "name": "Allow-Kube-APIServer",
+          "properties": {
+            "priority": 100,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "443",
+            "sourceAddressPrefix": "AzureCloud",
+            "destinationAddressPrefix": "*",
+            "description": "Allow kube-apiserver communication",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-Node-Communication",
+          "properties": {
+            "priority": 110,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "10.1.3.0/24",
+            "destinationAddressPrefix": "10.1.3.0/24",
+            "description": "Allow AKS node-to-node communication",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-LB-HealthProbes",
+          "properties": {
+            "priority": 200,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "AzureLoadBalancer",
+            "destinationAddressPrefix": "*",
+            "description": "Allow LB health probes",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Deny-Internet-Direct",
+          "properties": {
+            "priority": 1000,
+            "direction": "Inbound",
+            "access": "Deny",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "Internet",
+            "destinationAddressPrefix": "*",
+            "description": "Deny direct internet access",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-All-Outbound",
+          "properties": {
+            "priority": 100,
+            "direction": "Outbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Allow all outbound",
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "subnets": [
+        { "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app/subnets/snet-aks" }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/networkSecurityGroups/nsg-snet-appgw",
+    "name": "nsg-snet-appgw",
+    "type": "Microsoft.Network/networkSecurityGroups",
+    "location": "uksouth",
+    "resourceGroup": "rg-network",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "network", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "securityRules": [
+        {
+          "name": "Allow-GatewayManager",
+          "properties": {
+            "priority": 100,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRanges": ["65200-65535"],
+            "sourceAddressPrefix": "GatewayManager",
+            "destinationAddressPrefix": "*",
+            "description": "Required by Application Gateway v2 SKU",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-HTTP-Internet",
+          "properties": {
+            "priority": 200,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "80",
+            "sourceAddressPrefix": "Internet",
+            "destinationAddressPrefix": "*",
+            "description": "Allow HTTP from Internet",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-HTTPS-Internet",
+          "properties": {
+            "priority": 210,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "443",
+            "sourceAddressPrefix": "Internet",
+            "destinationAddressPrefix": "*",
+            "description": "Allow HTTPS from Internet",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-AzureLoadBalancer",
+          "properties": {
+            "priority": 300,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "AzureLoadBalancer",
+            "destinationAddressPrefix": "*",
+            "description": "Allow Azure Load Balancer",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-All-Outbound",
+          "properties": {
+            "priority": 100,
+            "direction": "Outbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Allow all outbound",
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "subnets": [
+        { "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app/subnets/snet-appgw" }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/networkSecurityGroups/nsg-snet-sql",
+    "name": "nsg-snet-sql",
+    "type": "Microsoft.Network/networkSecurityGroups",
+    "location": "uksouth",
+    "resourceGroup": "rg-network",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "data", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "securityRules": [
+        {
+          "name": "Allow-SQL-From-API",
+          "properties": {
+            "priority": 100,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "1433",
+            "sourceAddressPrefix": "10.1.2.0/24",
+            "destinationAddressPrefix": "*",
+            "description": "Allow SQL from API subnet",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-SQL-From-AKS",
+          "properties": {
+            "priority": 110,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "1433",
+            "sourceAddressPrefix": "10.1.3.0/24",
+            "destinationAddressPrefix": "*",
+            "description": "Allow SQL from AKS subnet",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Deny-All-Inbound",
+          "properties": {
+            "priority": 4096,
+            "direction": "Inbound",
+            "access": "Deny",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Deny all other inbound",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-All-Outbound",
+          "properties": {
+            "priority": 100,
+            "direction": "Outbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Allow all outbound",
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "subnets": [
+        { "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-data/providers/Microsoft.Network/virtualNetworks/vnet-spoke-data/subnets/snet-sql" }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/networkSecurityGroups/nsg-snet-redis",
+    "name": "nsg-snet-redis",
+    "type": "Microsoft.Network/networkSecurityGroups",
+    "location": "uksouth",
+    "resourceGroup": "rg-network",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "data", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "securityRules": [
+        {
+          "name": "Allow-Redis-From-API",
+          "properties": {
+            "priority": 100,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "6380",
+            "sourceAddressPrefix": "10.1.2.0/24",
+            "destinationAddressPrefix": "*",
+            "description": "Allow Redis SSL from API subnet",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-Redis-From-AKS",
+          "properties": {
+            "priority": 110,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "6380",
+            "sourceAddressPrefix": "10.1.3.0/24",
+            "destinationAddressPrefix": "*",
+            "description": "Allow Redis SSL from AKS subnet",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Deny-All-Inbound",
+          "properties": {
+            "priority": 4096,
+            "direction": "Inbound",
+            "access": "Deny",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Deny all other inbound",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-All-Outbound",
+          "properties": {
+            "priority": 100,
+            "direction": "Outbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Allow all outbound",
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "subnets": [
+        { "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-data/providers/Microsoft.Network/virtualNetworks/vnet-spoke-data/subnets/snet-redis" }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/networkSecurityGroups/nsg-snet-mgmt-dr",
+    "name": "nsg-snet-mgmt-dr",
+    "type": "Microsoft.Network/networkSecurityGroups",
+    "location": "ukwest",
+    "resourceGroup": "rg-network-dr",
+    "subscriptionId": "22222222-2222-2222-2222-222222222222",
+    "tags": { "env": "dr", "team": "network", "costCenter": "CC002" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "securityRules": [
+        {
+          "name": "Allow-RDP-SSH-From-Bastion",
+          "properties": {
+            "priority": 100,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRanges": ["3389", "22"],
+            "sourceAddressPrefix": "10.10.3.0/27",
+            "destinationAddressPrefix": "*",
+            "description": "Allow RDP/SSH from Bastion subnet",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Deny-All-Inbound",
+          "properties": {
+            "priority": 4096,
+            "direction": "Inbound",
+            "access": "Deny",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Deny all inbound",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-All-Outbound",
+          "properties": {
+            "priority": 100,
+            "direction": "Outbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Allow all outbound",
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "subnets": [
+        { "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/virtualNetworks/vnet-hub-dr/subnets/snet-mgmt-dr" }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/networkSecurityGroups/nsg-snet-web-dr",
+    "name": "nsg-snet-web-dr",
+    "type": "Microsoft.Network/networkSecurityGroups",
+    "location": "ukwest",
+    "resourceGroup": "rg-network-dr",
+    "subscriptionId": "22222222-2222-2222-2222-222222222222",
+    "tags": { "env": "dr", "team": "platform", "costCenter": "CC002" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "securityRules": [
+        {
+          "name": "Allow-HTTP-HTTPS-From-Hub-DR",
+          "properties": {
+            "priority": 100,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRanges": ["80", "443"],
+            "sourceAddressPrefix": "10.10.0.0/16",
+            "destinationAddressPrefix": "*",
+            "description": "Allow HTTP/HTTPS from hub DR",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-LB-HealthProbes",
+          "properties": {
+            "priority": 200,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "AzureLoadBalancer",
+            "destinationAddressPrefix": "*",
+            "description": "Allow LB health probes",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Deny-All-Inbound",
+          "properties": {
+            "priority": 4096,
+            "direction": "Inbound",
+            "access": "Deny",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Deny all inbound",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-All-Outbound",
+          "properties": {
+            "priority": 100,
+            "direction": "Outbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Allow all outbound",
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "subnets": [
+        { "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-compute-dr/providers/Microsoft.Network/virtualNetworks/vnet-spoke-dr/subnets/snet-web-dr" }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/networkSecurityGroups/nsg-snet-api-dr",
+    "name": "nsg-snet-api-dr",
+    "type": "Microsoft.Network/networkSecurityGroups",
+    "location": "ukwest",
+    "resourceGroup": "rg-network-dr",
+    "subscriptionId": "22222222-2222-2222-2222-222222222222",
+    "tags": { "env": "dr", "team": "platform", "costCenter": "CC002" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "securityRules": [
+        {
+          "name": "Allow-API-From-Web-DR",
+          "properties": {
+            "priority": 100,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRanges": ["443", "8080"],
+            "sourceAddressPrefix": "10.11.1.0/24",
+            "destinationAddressPrefix": "*",
+            "description": "Allow API traffic from web DR subnet",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Deny-Internet-Inbound",
+          "properties": {
+            "priority": 1000,
+            "direction": "Inbound",
+            "access": "Deny",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "Internet",
+            "destinationAddressPrefix": "*",
+            "description": "Deny internet inbound",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-All-Outbound",
+          "properties": {
+            "priority": 100,
+            "direction": "Outbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Allow all outbound",
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "subnets": [
+        { "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-compute-dr/providers/Microsoft.Network/virtualNetworks/vnet-spoke-dr/subnets/snet-api-dr" }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/networkSecurityGroups/nsg-snet-data-dr",
+    "name": "nsg-snet-data-dr",
+    "type": "Microsoft.Network/networkSecurityGroups",
+    "location": "ukwest",
+    "resourceGroup": "rg-network-dr",
+    "subscriptionId": "22222222-2222-2222-2222-222222222222",
+    "tags": { "env": "dr", "team": "data", "costCenter": "CC002" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "securityRules": [
+        {
+          "name": "Allow-SQL-From-API-DR",
+          "properties": {
+            "priority": 100,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "1433",
+            "sourceAddressPrefix": "10.11.2.0/24",
+            "destinationAddressPrefix": "*",
+            "description": "Allow SQL from API DR subnet",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Deny-All-Inbound",
+          "properties": {
+            "priority": 4096,
+            "direction": "Inbound",
+            "access": "Deny",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Deny all inbound",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-All-Outbound",
+          "properties": {
+            "priority": 100,
+            "direction": "Outbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Allow all outbound",
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "subnets": [
+        { "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-compute-dr/providers/Microsoft.Network/virtualNetworks/vnet-spoke-dr/subnets/snet-data-dr" }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/33333333-3333-0000-1111-333333333333/resourceGroups/rg-network-west-prod/providers/Microsoft.Network/networkSecurityGroups/nsg-snet-app-west",
+    "name": "nsg-snet-app-west",
+    "type": "Microsoft.Network/networkSecurityGroups",
+    "location": "ukwest",
+    "resourceGroup": "rg-network-west-prod",
+    "subscriptionId": "33333333-3333-0000-1111-333333333333",
+    "tags": { "env": "prod", "team": "platform", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "securityRules": [
+        {
+          "name": "Allow-HTTPS-From-VNet",
+          "properties": {
+            "priority": 100,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "443",
+            "sourceAddressPrefix": "VirtualNetwork",
+            "destinationAddressPrefix": "*",
+            "description": "Allow HTTPS from VNet",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-LB-HealthProbes",
+          "properties": {
+            "priority": 200,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "AzureLoadBalancer",
+            "destinationAddressPrefix": "*",
+            "description": "Allow LB probes",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Deny-Internet-Inbound",
+          "properties": {
+            "priority": 1000,
+            "direction": "Inbound",
+            "access": "Deny",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "Internet",
+            "destinationAddressPrefix": "*",
+            "description": "Deny internet inbound",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-All-Outbound",
+          "properties": {
+            "priority": 100,
+            "direction": "Outbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Allow all outbound",
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "subnets": [
+        { "id": "/subscriptions/33333333-3333-0000-1111-333333333333/resourceGroups/rg-network-west-prod/providers/Microsoft.Network/virtualNetworks/vnet-prod-west/subnets/snet-app-west" }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/33333333-3333-0000-1111-333333333333/resourceGroups/rg-network-west-prod/providers/Microsoft.Network/networkSecurityGroups/nsg-snet-data-west",
+    "name": "nsg-snet-data-west",
+    "type": "Microsoft.Network/networkSecurityGroups",
+    "location": "ukwest",
+    "resourceGroup": "rg-network-west-prod",
+    "subscriptionId": "33333333-3333-0000-1111-333333333333",
+    "tags": { "env": "prod", "team": "data", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "securityRules": [
+        {
+          "name": "Allow-SQL-From-App-West",
+          "properties": {
+            "priority": 100,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "1433",
+            "sourceAddressPrefix": "10.20.1.0/24",
+            "destinationAddressPrefix": "*",
+            "description": "Allow SQL from app west subnet",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Deny-All-Inbound",
+          "properties": {
+            "priority": 4096,
+            "direction": "Inbound",
+            "access": "Deny",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Deny all inbound",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-All-Outbound",
+          "properties": {
+            "priority": 100,
+            "direction": "Outbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Allow all outbound",
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "subnets": [
+        { "id": "/subscriptions/33333333-3333-0000-1111-333333333333/resourceGroups/rg-network-west-prod/providers/Microsoft.Network/virtualNetworks/vnet-prod-west/subnets/snet-data-west" }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/44444444-4444-0000-1111-444444444444/resourceGroups/rg-network-south-dr/providers/Microsoft.Network/networkSecurityGroups/nsg-snet-app-south",
+    "name": "nsg-snet-app-south",
+    "type": "Microsoft.Network/networkSecurityGroups",
+    "location": "uksouth",
+    "resourceGroup": "rg-network-south-dr",
+    "subscriptionId": "44444444-4444-0000-1111-444444444444",
+    "tags": { "env": "dr", "team": "platform", "costCenter": "CC002" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "securityRules": [
+        {
+          "name": "Allow-HTTPS-From-VNet",
+          "properties": {
+            "priority": 100,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "443",
+            "sourceAddressPrefix": "VirtualNetwork",
+            "destinationAddressPrefix": "*",
+            "description": "Allow HTTPS from VNet",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Deny-Internet-Inbound",
+          "properties": {
+            "priority": 1000,
+            "direction": "Inbound",
+            "access": "Deny",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "Internet",
+            "destinationAddressPrefix": "*",
+            "description": "Deny internet inbound",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-All-Outbound",
+          "properties": {
+            "priority": 100,
+            "direction": "Outbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Allow all outbound",
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "subnets": [
+        { "id": "/subscriptions/44444444-4444-0000-1111-444444444444/resourceGroups/rg-network-south-dr/providers/Microsoft.Network/virtualNetworks/vnet-dr-south/subnets/snet-app-south" }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/44444444-4444-0000-1111-444444444444/resourceGroups/rg-network-south-dr/providers/Microsoft.Network/networkSecurityGroups/nsg-snet-data-south",
+    "name": "nsg-snet-data-south",
+    "type": "Microsoft.Network/networkSecurityGroups",
+    "location": "uksouth",
+    "resourceGroup": "rg-network-south-dr",
+    "subscriptionId": "44444444-4444-0000-1111-444444444444",
+    "tags": { "env": "dr", "team": "data", "costCenter": "CC002" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "securityRules": [
+        {
+          "name": "Allow-SQL-From-App-South",
+          "properties": {
+            "priority": 100,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "1433",
+            "sourceAddressPrefix": "10.30.1.0/24",
+            "destinationAddressPrefix": "*",
+            "description": "Allow SQL from app south subnet",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Deny-All-Inbound",
+          "properties": {
+            "priority": 4096,
+            "direction": "Inbound",
+            "access": "Deny",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Deny all inbound",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-All-Outbound",
+          "properties": {
+            "priority": 100,
+            "direction": "Outbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Allow all outbound",
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "subnets": [
+        { "id": "/subscriptions/44444444-4444-0000-1111-444444444444/resourceGroups/rg-network-south-dr/providers/Microsoft.Network/virtualNetworks/vnet-dr-south/subnets/snet-data-south" }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/55555555-5555-0000-1111-555555555555/resourceGroups/rg-network-jpe-prod/providers/Microsoft.Network/networkSecurityGroups/nsg-snet-app-jpe",
+    "name": "nsg-snet-app-jpe",
+    "type": "Microsoft.Network/networkSecurityGroups",
+    "location": "japaneast",
+    "resourceGroup": "rg-network-jpe-prod",
+    "subscriptionId": "55555555-5555-0000-1111-555555555555",
+    "tags": { "env": "prod", "team": "platform", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "securityRules": [
+        {
+          "name": "Allow-HTTPS-From-VNet",
+          "properties": {
+            "priority": 100,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "443",
+            "sourceAddressPrefix": "VirtualNetwork",
+            "destinationAddressPrefix": "*",
+            "description": "Allow HTTPS from VNet",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Deny-Internet-Inbound",
+          "properties": {
+            "priority": 1000,
+            "direction": "Inbound",
+            "access": "Deny",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "Internet",
+            "destinationAddressPrefix": "*",
+            "description": "Deny internet inbound",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-All-Outbound",
+          "properties": {
+            "priority": 100,
+            "direction": "Outbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Allow all outbound",
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "subnets": [
+        { "id": "/subscriptions/55555555-5555-0000-1111-555555555555/resourceGroups/rg-network-jpe-prod/providers/Microsoft.Network/virtualNetworks/vnet-prod-jpe/subnets/snet-app-jpe" }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/55555555-5555-0000-1111-555555555555/resourceGroups/rg-network-jpe-prod/providers/Microsoft.Network/networkSecurityGroups/nsg-snet-data-jpe",
+    "name": "nsg-snet-data-jpe",
+    "type": "Microsoft.Network/networkSecurityGroups",
+    "location": "japaneast",
+    "resourceGroup": "rg-network-jpe-prod",
+    "subscriptionId": "55555555-5555-0000-1111-555555555555",
+    "tags": { "env": "prod", "team": "data", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "securityRules": [
+        {
+          "name": "Allow-SQL-From-App-JPE",
+          "properties": {
+            "priority": 100,
+            "direction": "Inbound",
+            "access": "Allow",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "1433",
+            "sourceAddressPrefix": "10.50.1.0/24",
+            "destinationAddressPrefix": "*",
+            "description": "Allow SQL from app JPE subnet",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Deny-All-Inbound",
+          "properties": {
+            "priority": 4096,
+            "direction": "Inbound",
+            "access": "Deny",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Deny all inbound",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "name": "Allow-All-Outbound",
+          "properties": {
+            "priority": 100,
+            "direction": "Outbound",
+            "access": "Allow",
+            "protocol": "*",
+            "sourcePortRange": "*",
+            "destinationPortRange": "*",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "description": "Allow all outbound",
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "subnets": [
+        { "id": "/subscriptions/55555555-5555-0000-1111-555555555555/resourceGroups/rg-network-jpe-prod/providers/Microsoft.Network/virtualNetworks/vnet-prod-jpe/subnets/snet-data-jpe" }
+      ]
+    }
+  }
+]

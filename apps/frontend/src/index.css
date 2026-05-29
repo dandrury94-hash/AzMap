@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Lift React Flow edges and edge labels above node cards */
+.react-flow__edges {
+  z-index: 1000 !important;
+}
+.react-flow__edgelabel-renderer {
+  z-index: 1001 !important;
+}

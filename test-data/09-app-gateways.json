@@ -1,0 +1,207 @@
+[
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod",
+    "name": "agw-prod",
+    "type": "Microsoft.Network/applicationGateways",
+    "location": "uksouth",
+    "resourceGroup": "rg-compute",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "platform", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "sku": {
+        "name": "WAF_v2",
+        "tier": "WAF_v2",
+        "capacity": 2
+      },
+      "autoscaleConfiguration": {
+        "minCapacity": 2,
+        "maxCapacity": 10
+      },
+      "webApplicationFirewallConfiguration": {
+        "enabled": true,
+        "firewallMode": "Prevention",
+        "ruleSetType": "OWASP",
+        "ruleSetVersion": "3.2",
+        "requestBodyCheck": true,
+        "maxRequestBodySizeInKb": 128
+      },
+      "gatewayIPConfigurations": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/gatewayIPConfigurations/gwipconfig",
+          "name": "gwipconfig",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "subnet": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app/subnets/snet-appgw"
+            }
+          }
+        }
+      ],
+      "frontendIPConfigurations": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/frontendIPConfigurations/feip-public",
+          "name": "feip-public",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "publicIPAddress": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/publicIPAddresses/pip-appgw-prod"
+            }
+          }
+        },
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/frontendIPConfigurations/feip-private",
+          "name": "feip-private",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "privateIPAddress": "10.1.4.5",
+            "privateIPAllocationMethod": "Static",
+            "subnet": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app/subnets/snet-appgw"
+            }
+          }
+        }
+      ],
+      "frontendPorts": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/frontendPorts/port-80",
+          "name": "port-80",
+          "properties": { "provisioningState": "Succeeded", "port": 80 }
+        },
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/frontendPorts/port-443",
+          "name": "port-443",
+          "properties": { "provisioningState": "Succeeded", "port": 443 }
+        }
+      ],
+      "sslCertificates": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/sslCertificates/cert-contoso-com",
+          "name": "cert-contoso-com",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "keyVaultSecretId": "https://kv-prod-001.vault.azure.net/secrets/ssl-contoso-com"
+          }
+        }
+      ],
+      "httpListeners": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/httpListeners/listener-http",
+          "name": "listener-http",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "frontendIPConfiguration": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/frontendIPConfigurations/feip-public"
+            },
+            "frontendPort": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/frontendPorts/port-80"
+            },
+            "protocol": "Http",
+            "hostName": "contoso.com"
+          }
+        },
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/httpListeners/listener-https",
+          "name": "listener-https",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "frontendIPConfiguration": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/frontendIPConfigurations/feip-public"
+            },
+            "frontendPort": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/frontendPorts/port-443"
+            },
+            "protocol": "Https",
+            "hostName": "contoso.com",
+            "sslCertificate": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/sslCertificates/cert-contoso-com"
+            }
+          }
+        }
+      ],
+      "backendAddressPools": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/backendAddressPools/bepool-web",
+          "name": "bepool-web",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "backendAddresses": [
+              { "ipAddress": "10.1.1.10" },
+              { "ipAddress": "10.1.1.11" },
+              { "ipAddress": "10.1.1.12" }
+            ]
+          }
+        }
+      ],
+      "backendHttpSettingsCollection": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/backendHttpSettingsCollection/settings-web",
+          "name": "settings-web",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "port": 80,
+            "protocol": "Http",
+            "cookieBasedAffinity": "Enabled",
+            "affinityCookieName": "ApplicationGatewayAffinity",
+            "requestTimeout": 30,
+            "connectionDraining": {
+              "enabled": true,
+              "drainTimeoutInSec": 30
+            },
+            "pickHostNameFromBackendAddress": false
+          }
+        }
+      ],
+      "redirectConfigurations": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/redirectConfigurations/redirect-http-to-https",
+          "name": "redirect-http-to-https",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "redirectType": "Permanent",
+            "targetListener": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/httpListeners/listener-https"
+            },
+            "includePath": true,
+            "includeQueryString": true
+          }
+        }
+      ],
+      "requestRoutingRules": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/requestRoutingRules/rule-http",
+          "name": "rule-http",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "ruleType": "Basic",
+            "priority": 100,
+            "httpListener": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/httpListeners/listener-http"
+            },
+            "redirectConfiguration": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/redirectConfigurations/redirect-http-to-https"
+            }
+          }
+        },
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/requestRoutingRules/rule-https",
+          "name": "rule-https",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "ruleType": "Basic",
+            "priority": 200,
+            "httpListener": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/httpListeners/listener-https"
+            },
+            "backendAddressPool": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/backendAddressPools/bepool-web"
+            },
+            "backendHttpSettings": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/applicationGateways/agw-prod/backendHttpSettingsCollection/settings-web"
+            }
+          }
+        }
+      ]
+    }
+  }
+]

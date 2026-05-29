@@ -1,0 +1,262 @@
+[
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-web-prod",
+    "name": "lb-web-prod",
+    "type": "Microsoft.Network/loadBalancers",
+    "location": "uksouth",
+    "resourceGroup": "rg-compute",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "platform", "costCenter": "CC001" },
+    "sku": { "name": "Standard", "tier": "Regional" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "frontendIPConfigurations": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-web-prod/frontendIPConfigurations/fe-web-prod",
+          "name": "fe-web-prod",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "privateIPAddress": "10.1.1.100",
+            "privateIPAllocationMethod": "Static",
+            "subnet": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app/subnets/snet-web"
+            }
+          }
+        }
+      ],
+      "backendAddressPools": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-web-prod/backendAddressPools/bepool-web",
+          "name": "bepool-web",
+          "properties": {
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "loadBalancingRules": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-web-prod/loadBalancingRules/rule-http",
+          "name": "rule-http",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "frontendIPConfiguration": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-web-prod/frontendIPConfigurations/fe-web-prod"
+            },
+            "backendAddressPool": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-web-prod/backendAddressPools/bepool-web"
+            },
+            "probe": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-web-prod/probes/probe-http"
+            },
+            "protocol": "Tcp",
+            "frontendPort": 80,
+            "backendPort": 80,
+            "idleTimeoutInMinutes": 4,
+            "enableFloatingIP": false,
+            "enableTcpReset": true,
+            "loadDistribution": "Default"
+          }
+        },
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-web-prod/loadBalancingRules/rule-https",
+          "name": "rule-https",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "frontendIPConfiguration": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-web-prod/frontendIPConfigurations/fe-web-prod"
+            },
+            "backendAddressPool": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-web-prod/backendAddressPools/bepool-web"
+            },
+            "probe": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-web-prod/probes/probe-https"
+            },
+            "protocol": "Tcp",
+            "frontendPort": 443,
+            "backendPort": 443,
+            "idleTimeoutInMinutes": 4,
+            "enableFloatingIP": false,
+            "enableTcpReset": true,
+            "loadDistribution": "Default"
+          }
+        }
+      ],
+      "probes": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-web-prod/probes/probe-http",
+          "name": "probe-http",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "protocol": "Http",
+            "port": 80,
+            "requestPath": "/health",
+            "intervalInSeconds": 15,
+            "numberOfProbes": 2
+          }
+        },
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-web-prod/probes/probe-https",
+          "name": "probe-https",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "protocol": "Https",
+            "port": 443,
+            "requestPath": "/health",
+            "intervalInSeconds": 15,
+            "numberOfProbes": 2
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-api-prod",
+    "name": "lb-api-prod",
+    "type": "Microsoft.Network/loadBalancers",
+    "location": "uksouth",
+    "resourceGroup": "rg-compute",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "platform", "costCenter": "CC001" },
+    "sku": { "name": "Standard", "tier": "Regional" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "frontendIPConfigurations": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-api-prod/frontendIPConfigurations/fe-api-prod",
+          "name": "fe-api-prod",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "privateIPAddress": "10.1.2.100",
+            "privateIPAllocationMethod": "Static",
+            "subnet": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app/subnets/snet-api"
+            }
+          }
+        }
+      ],
+      "backendAddressPools": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-api-prod/backendAddressPools/bepool-api",
+          "name": "bepool-api",
+          "properties": {
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "loadBalancingRules": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-api-prod/loadBalancingRules/rule-api",
+          "name": "rule-api",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "frontendIPConfiguration": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-api-prod/frontendIPConfigurations/fe-api-prod"
+            },
+            "backendAddressPool": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-api-prod/backendAddressPools/bepool-api"
+            },
+            "probe": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-api-prod/probes/probe-api"
+            },
+            "protocol": "Tcp",
+            "frontendPort": 8080,
+            "backendPort": 8080,
+            "idleTimeoutInMinutes": 4,
+            "enableFloatingIP": false,
+            "enableTcpReset": true,
+            "loadDistribution": "Default"
+          }
+        }
+      ],
+      "probes": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-api-prod/probes/probe-api",
+          "name": "probe-api",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "protocol": "Http",
+            "port": 8080,
+            "requestPath": "/health",
+            "intervalInSeconds": 15,
+            "numberOfProbes": 2
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-compute-dr/providers/Microsoft.Network/loadBalancers/lb-web-dr",
+    "name": "lb-web-dr",
+    "type": "Microsoft.Network/loadBalancers",
+    "location": "ukwest",
+    "resourceGroup": "rg-compute-dr",
+    "subscriptionId": "22222222-2222-2222-2222-222222222222",
+    "tags": { "env": "dr", "team": "platform", "costCenter": "CC002" },
+    "sku": { "name": "Standard", "tier": "Regional" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "frontendIPConfigurations": [
+        {
+          "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-compute-dr/providers/Microsoft.Network/loadBalancers/lb-web-dr/frontendIPConfigurations/fe-web-dr",
+          "name": "fe-web-dr",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "privateIPAddress": "10.11.1.100",
+            "privateIPAllocationMethod": "Static",
+            "subnet": {
+              "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-compute-dr/providers/Microsoft.Network/virtualNetworks/vnet-spoke-dr/subnets/snet-web-dr"
+            }
+          }
+        }
+      ],
+      "backendAddressPools": [
+        {
+          "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-compute-dr/providers/Microsoft.Network/loadBalancers/lb-web-dr/backendAddressPools/bepool-web-dr",
+          "name": "bepool-web-dr",
+          "properties": {
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "loadBalancingRules": [
+        {
+          "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-compute-dr/providers/Microsoft.Network/loadBalancers/lb-web-dr/loadBalancingRules/rule-http-dr",
+          "name": "rule-http-dr",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "frontendIPConfiguration": {
+              "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-compute-dr/providers/Microsoft.Network/loadBalancers/lb-web-dr/frontendIPConfigurations/fe-web-dr"
+            },
+            "backendAddressPool": {
+              "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-compute-dr/providers/Microsoft.Network/loadBalancers/lb-web-dr/backendAddressPools/bepool-web-dr"
+            },
+            "probe": {
+              "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-compute-dr/providers/Microsoft.Network/loadBalancers/lb-web-dr/probes/probe-http-dr"
+            },
+            "protocol": "Tcp",
+            "frontendPort": 80,
+            "backendPort": 80,
+            "idleTimeoutInMinutes": 4,
+            "enableFloatingIP": false,
+            "enableTcpReset": true,
+            "loadDistribution": "Default"
+          }
+        }
+      ],
+      "probes": [
+        {
+          "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-compute-dr/providers/Microsoft.Network/loadBalancers/lb-web-dr/probes/probe-http-dr",
+          "name": "probe-http-dr",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "protocol": "Http",
+            "port": 80,
+            "requestPath": "/health",
+            "intervalInSeconds": 15,
+            "numberOfProbes": 2
+          }
+        }
+      ]
+    }
+  }
+]

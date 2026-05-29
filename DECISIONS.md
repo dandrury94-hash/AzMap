@@ -896,3 +896,355 @@ maintenance overhead with no architectural benefit.
 * CLAUDE.md is the only Claude Code operating document.
 * Governance documents must not duplicate each other's responsibilities.
 * If a governance gap exists, add it to the appropriate existing document.
+
+---
+
+# ADR-015 — Visual Hierarchy: Swimlane Subscription, Region Column Overhang
+
+## Status
+
+Accepted
+
+---
+
+## Decision
+
+The topology canvas uses three distinct container rendering modes, each with a specific visual contract:
+
+1. **Regular containers** (`azureContainer`) — standard resource containers (ResourceGroup, VirtualNetwork, Subnet). Rendered with a coloured top header band and a full border. Children are positioned below the header.
+
+2. **Swimlane containers** (`azureSwimLane`) — Subscription and ManagementGroup. Rendered as a horizontal band with a narrow vertical label strip on the left (36px). No top/bottom header band. Region columns sit to the right of the strip. Multiple subscriptions stack as additional swimlane rows.
+
+3. **Region columns** (`azureRegionColumn`) — Region nodes. Rendered as a bordered, tinted column card that protrudes `REGION_OVERHANG = 36px` above and below the subscription swimlane edge. The region header label sits in the top overhang area. React Flow's `extent: 'parent'` is omitted so the card is not clipped to the subscription boundary.
+
+The layout hierarchy is: `Subscription (swimlane) → Region (column) → ResourceGroup → resources`.
+
+Subscriptions are the outer layout container because a subscription is the billing/RBAC boundary that *owns* the resources in each region. Regions are not independent Azure resources — they are a deployment location attribute. Rendering regions as swimlane rows inside subscriptions (rather than the inverse) means that each subscription's region set is explicit and independently visible.
+
+---
+
+## Rationale
+
+When a second subscription is imported, it adds a second swimlane row. Each row contains its own set of region column labels. Region labels are not shared across subscriptions — this is intentional. A Resource Group in "Production / UK South" is semantically distinct from one in "Development / UK South" even though the Azure region is the same physical location.
+
+This avoids the false implication that resources in different subscriptions share a governance boundary simply because they share a region.
+
+---
+
+## Consequences
+
+### Positive
+
+* Subscription boundary is always visually explicit
+* Region labels are unambiguous — each belongs to a specific subscription context
+* Multiple subscriptions are cleanly supported by adding swimlane rows
+* Region overhang provides clear column delineation without covering the subscription label
+
+### Negative
+
+* A region name (e.g. "UK South") appears once per subscription row, not once globally
+* Cross-subscription region alignment requires future layout work if desired
+
+---
+
+## Rules
+
+* Subscription always renders as `azureSwimLane`.
+* Region always renders as `azureRegionColumn` with `extent: 'parent'` omitted.
+* Layout engine derives swimlane height from region *content* height (not inflated region dims) to ensure symmetric overhang.
+* `SWIMLANE_W` in the layout engine and `STRIP_W` in `AzureSwimLane.tsx` must remain equal.
+* `REGION_OVERHANG` in the layout engine is the single source of truth for how far region cards protrude.
+
+---
+
+# ADR-016 — Container Handle Semantics
+
+## Status
+
+Accepted
+
+---
+
+## Decision
+
+Container nodes (`azureContainer`, `azureRegionColumn`) use differentiated handle positioning to encode visual meaning:
+
+- **Target handle (inbound connections)**: centred within the container (`top: 50%, left: 50%`). Edges terminate *inside* the box. Used for relationships where a resource is *attached to* or *inside* the container — e.g. `ConnectedTo` (NIC → Subnet) signals that the NIC's IP lives within the subnet's address space.
+
+- **Source handle (outbound connections)**: on the bottom border (standard position). Edges exit from the *outer wall*. Used for relationships where the container *governs* or *points to* something external — e.g. `SecuredBy` (Subnet → NSG) signals that the NSG enforces a boundary at the subnet's edge.
+
+---
+
+## Rationale
+
+In Azure, the distinction matters architecturally:
+
+- A NIC *lives inside* a subnet — its IP is allocated from the subnet's address prefix. The edge should appear to enter the subnet.
+- An NSG *governs the boundary* of a subnet — it filters traffic at the perimeter. The edge should appear to exit from the outer wall toward the NSG.
+
+Uniform handle positioning (all edges at the border) loses this semantic distinction.
+
+---
+
+## Consequences
+
+### Positive
+
+* Edges carry architectural meaning beyond their colour/style
+* Subnet boxes no longer appear empty — the inbound NIC edge visually occupies the interior
+* Security boundary relationships are visually distinct from attachment relationships
+
+### Negative
+
+* Handle positioning is a visual convention — not enforced by the graph model
+* Edge routing in React Flow may occasionally produce curved paths that look unexpected when handles are centred
+
+---
+
+## Rules
+
+* Target handles on containers must remain centred.
+* Source handles on containers must remain on the bottom border.
+* This convention must be preserved when adding new container node types.
+
+---
+
+# ADR-017 — Two-Pass Normalization Strategy
+
+## Status
+
+Accepted
+
+---
+
+## Decision
+
+The `normalizeAzureResources` function in `jsonNormalizer.ts` processes the resource array in exactly two passes:
+
+**Pass 1** — Nodes, organisational hierarchy, and self-contained relationships.
+For each resource: create its GraphNode, build the Subscription → Region → ResourceGroup hierarchy
+on demand, and extract any relationships that are derivable from the resource's own `properties`
+object (e.g. RouteTable → associated subnets, AzureFirewall → FirewallPolicy). VNet subnets are
+also extracted here because they are embedded inside the VNet payload, not separate top-level
+resources.
+
+**Pass 2** — Cross-resource NIC and VM relationships.
+A second iteration over the resource array to create edges that span two resources: NIC → Subnet,
+NIC → NSG, NIC → LoadBalancer, and VM → NIC. This pass runs after Pass 1 is complete, so all
+Subnet and NIC nodes are guaranteed to already exist in the node map regardless of the ordering
+of resources in the input array.
+
+---
+
+## Rationale
+
+A single-pass design cannot safely handle cross-resource references because Azure resource exports
+have no guaranteed ordering. A NIC might appear before the VNet (and thus before the Subnet nodes
+embedded in that VNet) in the flat resource array. If NIC → Subnet edges were created in a single
+pass, they would silently reference non-existent nodes whenever the NIC preceded its VNet in the
+input.
+
+The two-pass design eliminates this ordering dependency:
+- Pass 1 is a "build the world" pass — every node that can exist, will exist after Pass 1 completes.
+- Pass 2 is a "wire the world" pass — it can freely reference any node created in Pass 1.
+
+The alternative (a topological sort of the resource array before processing) would require knowing
+which resource types depend on which other types, adding fragile coupling between the pass logic
+and the type system. The two-pass approach is simpler and more maintainable.
+
+---
+
+## Consequences
+
+### Positive
+
+* Resource array ordering does not affect graph correctness
+* Each pass has a clear, single responsibility
+* New relationship types can be added to the appropriate pass without affecting the other
+
+### Negative
+
+* The resource array is iterated twice (acceptable — the array is typically 10–10,000 items)
+* Cross-resource relationship types that are not NIC or VM must be consciously placed in the
+  correct pass (Pass 1 if self-contained, Pass 2 if cross-resource)
+
+---
+
+## Rules
+
+* Pass 1 must create all nodes and all self-contained relationships.
+* Pass 2 may only create relationships; it must not create nodes.
+* Any relationship derivable from a single resource's own properties belongs in Pass 1
+  (via `extractNetworkRelationships`).
+* Any relationship that references another resource's node belongs in Pass 2.
+
+---
+
+# ADR-018 — Silent Skipping Policy For Unknown Resource Types
+
+## Status
+
+Accepted
+
+---
+
+## Decision
+
+Azure resource types that do not appear in `AZURE_TYPE_MAP` are silently skipped during
+normalization. No warning is emitted, no error is thrown, and no placeholder node is created.
+The resource is simply not included in the output graph.
+
+---
+
+## Rationale
+
+Real Azure environments always contain resource types that AzMap has not modeled:
+
+* Management-plane-only services (e.g. `Microsoft.Authorization/roleAssignments`,
+  `Microsoft.PolicyInsights/policyStates`)
+* Preview services that exist in some tenants but not others
+* Provider registration resources (e.g. `Microsoft.Features/featureProviders`)
+* Resource types added to Azure after the last AzMap update
+
+If AzMap emitted a warning for every unknown type, a typical Resource Graph export would produce
+dozens of warnings for resources the user cannot do anything about. This noise would hide the
+genuinely useful warnings (e.g. a resource with a missing `id` field that may indicate a malformed
+export).
+
+The silent-skip policy keeps the warning surface meaningful: warnings are only emitted for
+resources that look broken, not for resources that are simply unrecognized.
+
+---
+
+## Consequences
+
+### Positive
+
+* Imports from realistic environments do not produce noisy warning lists
+* Warnings remain high-signal and actionable
+* Adding support for a new resource type is always additive — existing behavior is unchanged
+
+### Negative
+
+* A user cannot easily discover which resource types were silently dropped from their import
+* If `AZURE_TYPE_MAP` has a typo, the affected type will be silently skipped rather than
+  surfacing as an error
+
+---
+
+## Rules
+
+* Unknown ARM types must be silently skipped (`continue` in the normalizer loop).
+* Warnings are reserved for structurally malformed resources (missing `id` or `type`).
+* A future "import summary" feature may expose skipped type statistics without promoting them to warnings.
+
+---
+
+# ADR-019 — Canvas-Level Peering Bus Zone
+
+## Status
+
+Accepted
+
+---
+
+## Decision
+
+VNet peering edge bus lanes run in a dedicated vertical strip on the canvas between the MG section and the subscription swimlane section. The strip height is computed from the number of deduplicated peering pairs:
+
+```
+peeringBusZoneHeight = PEER_BUS_PAD × 2 + numPeeringEdges × PEER_LANE_STEP
+```
+
+Each peering edge receives an absolute canvas Y coordinate (`busY = peeringBusOriginY + laneIndex × PEER_LANE_STEP`) injected into its `data` property in `Topology.tsx`. `PeeringEdge` reads `data.busY` directly and draws a ⊓-shaped path (tine up → bus → tine down). The bus Y is never re-derived from handle positions.
+
+If there are no peering edges, `peeringBusZoneHeight = 0` and swimlanes are positioned at their normal offset with no gap.
+
+Per-peer handles on VNet nodes (`peer-src-{peerId}` / `peer-tgt-{peerId}`) are spread evenly across the top edge of each VNet container. Handle positions are derived from the sorted `peerIds` list injected into each VNet's node data from `Topology.tsx`.
+
+---
+
+## Rationale
+
+The previous design computed `busY = min(sourceY, targetY) − LIFT − laneIndex × STEP`. Because VNet nodes are deeply nested inside RG → Region → Swimlane containers, the resulting `busY` value often fell within the card stack, causing horizontal bus segments to visually intersect container header bands.
+
+Using an absolute canvas Y that is structurally above all swimlane content — enforced by layout offset, not by a large enough lift constant — makes the guarantee architectural rather than fragile. No value of `LIFT` is reliably "large enough" because swimlane content depth varies per environment.
+
+Single-handle peering (all edges converging on `id="peer"` at center-top) produced a visual star-burst of lines from one point, making individual peering relationships impossible to trace.
+
+---
+
+## Consequences
+
+### Positive
+
+* Horizontal bus segments are guaranteed clear of all card content regardless of nesting depth
+* Per-peer handles spread the connection points across the VNet, making individual peerings traceable
+* Peering bus zone height responds to data — zero overhead when no peerings are present
+* `peeringBusOriginY` is the single source of truth; no consumer re-derives it
+
+### Negative
+
+* Tine segments (vertical lines from VNet handle up to bus) still cross card borders — unavoidable since VNets are nested
+* Canvas layout must be recomputed when the peering edge count changes
+
+---
+
+## Rules
+
+* `PeeringEdge` must read `data.busY` directly — it must never re-derive bus Y from handle positions.
+* `peeringBusOriginY` is owned by `Topology.tsx`; all peering edge `busY` values must derive from it.
+* Swimlane offset must account for both `mgLayout.sectionHeight` and `peeringBusZoneHeight`.
+* VNet `peerIds` must be sorted alphabetically before being injected into node data (stable handle positions).
+
+---
+
+# ADR-020 — HTML-Layer Edge Labels via EdgeLabelRenderer
+
+## Status
+
+Accepted
+
+---
+
+## Decision
+
+All edge label rendering must use React Flow's `EdgeLabelRenderer` portal component, which places labels in an HTML div overlay above the node card layer. SVG-native edge labels (`labelBgStyle`/`labelStyle` props on default React Flow edges) are not used.
+
+Each custom edge component (`BusEdge`, `PeeringEdge`, `MgBusEdge`, `RelationshipEdge`) renders its label inside `<EdgeLabelRenderer>` as an HTML `<div>` with `position: absolute` and a `transform: translate(...)` derived from the edge's canvas coordinates.
+
+---
+
+## Rationale
+
+React Flow's rendering architecture stacks:
+1. SVG edges layer (bottom)
+2. HTML node cards layer (above SVG)
+3. `EdgeLabelRenderer` HTML portal layer (top)
+
+SVG-rendered labels (`<text>` elements within the edges SVG) are structurally below the HTML node card layer. In environments where edges pass beneath containers, their labels are occluded by the card backgrounds. This is not a z-index problem — it is a DOM stacking order problem that cannot be resolved by CSS `z-index` on SVG elements.
+
+`EdgeLabelRenderer` places a `position: absolute` HTML div that is a sibling of the node card layer and sits above it, guaranteeing labels are always readable regardless of card overlap.
+
+---
+
+## Consequences
+
+### Positive
+
+* Edge labels always appear in front of all node card backgrounds
+* Label styling uses standard CSS — no SVG text rendering constraints
+* Consistent behavior across all edge types
+
+### Negative
+
+* Labels must be positioned manually using computed canvas coordinates (no automatic midpoint from React Flow's label system)
+* Custom edges must import and use `EdgeLabelRenderer` explicitly
+
+---
+
+## Rules
+
+* No custom edge component may use the `label`, `labelStyle`, or `labelBgStyle` React Flow props to render labels — these produce SVG-layer labels that will be obscured by node cards.
+* All edge labels must be rendered inside `<EdgeLabelRenderer>`.
+* The background behind label text must be a solid-fill HTML element (e.g. `background: '#111827'`) — not SVG `labelBgStyle`.

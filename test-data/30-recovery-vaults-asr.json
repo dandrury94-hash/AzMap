@@ -1,0 +1,99 @@
+[
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-backup/providers/Microsoft.RecoveryServices/vaults/rsv-asr-prod",
+    "name": "rsv-asr-prod",
+    "type": "Microsoft.RecoveryServices/vaults",
+    "location": "uksouth",
+    "resourceGroup": "rg-backup",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "platform", "costCenter": "CC001" },
+    "sku": { "name": "RS0", "tier": "Standard" },
+    "identity": {
+      "type": "SystemAssigned",
+      "principalId": "aaaaaaaa-bbbb-cccc-dddd-ffffffffffff",
+      "tenantId": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
+    },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "storageModelType": "GeoRedundant",
+      "storageType": "GeoRedundant",
+      "storageTypeState": "Locked",
+      "crossRegionRestoreFlag": false,
+      "softDeleteFeatureState": "Enabled",
+      "enhancedSecurityState": "Enabled",
+      "backupStorageVersion": "V2",
+      "privateEndpointStateForBackup": "None",
+      "privateEndpointStateForSiteRecovery": "None",
+      "replicationAlertSettings": {
+        "sendToOwners": "Send",
+        "customEmailAddresses": ["platform-team@contoso.com"],
+        "locale": "en-US"
+      },
+      "replicationPolicies": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-backup/providers/Microsoft.RecoveryServices/vaults/rsv-asr-prod/replicationPolicies/policy-azure-to-azure",
+          "name": "policy-azure-to-azure",
+          "type": "Microsoft.RecoveryServices/vaults/replicationPolicies",
+          "properties": {
+            "friendlyName": "policy-azure-to-azure",
+            "providerSpecificDetails": {
+              "instanceType": "A2A",
+              "multiVmSyncStatus": "Enabled",
+              "recoveryPointHistory": 24,
+              "appConsistentFrequencyInMinutes": 240,
+              "crashConsistentFrequencyInMinutes": 5
+            }
+          }
+        }
+      ],
+      "replicationFabrics": [
+        {
+          "name": "fabric-uksouth",
+          "friendlyName": "uksouth",
+          "location": "uksouth",
+          "type": "Azure"
+        }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-backup-dr/providers/Microsoft.RecoveryServices/vaults/rsv-asr-dr",
+    "name": "rsv-asr-dr",
+    "type": "Microsoft.RecoveryServices/vaults",
+    "location": "ukwest",
+    "resourceGroup": "rg-backup-dr",
+    "subscriptionId": "22222222-2222-2222-2222-222222222222",
+    "tags": { "env": "dr", "team": "platform", "costCenter": "CC002" },
+    "sku": { "name": "RS0", "tier": "Standard" },
+    "identity": {
+      "type": "SystemAssigned",
+      "principalId": "bbbbbbbb-cccc-dddd-eeee-ffffffffffff",
+      "tenantId": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
+    },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "storageModelType": "LocallyRedundant",
+      "storageType": "LocallyRedundant",
+      "storageTypeState": "Unlocked",
+      "crossRegionRestoreFlag": false,
+      "softDeleteFeatureState": "Enabled",
+      "enhancedSecurityState": "Enabled",
+      "backupStorageVersion": "V2",
+      "privateEndpointStateForBackup": "None",
+      "privateEndpointStateForSiteRecovery": "None",
+      "replicationAlertSettings": {
+        "sendToOwners": "Send",
+        "customEmailAddresses": ["platform-team@contoso.com"],
+        "locale": "en-US"
+      },
+      "replicationFabrics": [
+        {
+          "name": "fabric-ukwest",
+          "friendlyName": "ukwest",
+          "location": "ukwest",
+          "type": "Azure"
+        }
+      ]
+    }
+  }
+]

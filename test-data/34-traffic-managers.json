@@ -1,0 +1,51 @@
+[
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/trafficManagerProfiles/tm-app",
+    "name": "tm-app",
+    "type": "Microsoft.Network/trafficManagerProfiles",
+    "location": "global",
+    "resourceGroup": "rg-network",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "network", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "profileStatus": "Enabled",
+      "trafficRoutingMethod": "Priority",
+      "dnsConfig": {
+        "relativeName": "tm-app-contoso",
+        "ttl": 60
+      },
+      "monitorConfig": {
+        "protocol": "HTTPS",
+        "port": 443,
+        "path": "/health"
+      },
+      "endpoints": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/trafficManagerProfiles/tm-app/azureEndpoints/ep-app-primary",
+          "name": "ep-app-primary",
+          "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
+          "properties": {
+            "endpointStatus": "Enabled",
+            "endpointMonitorStatus": "Online",
+            "priority": 1,
+            "weight": 1,
+            "targetResourceId": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Web/sites/app-web-prod"
+          }
+        },
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/trafficManagerProfiles/tm-app/azureEndpoints/ep-app-dr",
+          "name": "ep-app-dr",
+          "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
+          "properties": {
+            "endpointStatus": "Enabled",
+            "endpointMonitorStatus": "Online",
+            "priority": 2,
+            "weight": 1,
+            "targetResourceId": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-compute-dr/providers/Microsoft.Web/sites/app-web-dr"
+          }
+        }
+      ]
+    }
+  }
+]

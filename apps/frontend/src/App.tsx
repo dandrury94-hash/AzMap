@@ -1,11 +1,28 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { AppShell } from './layout/AppShell'
+import { Dashboard } from './pages/Dashboard'
+import { Import } from './pages/Import'
+import { Export } from './pages/Export'
+import { Tutorial } from './pages/Tutorial'
+import { Topology } from './pages/Topology'
+import { TenancyTopology } from './pages/TenancyTopology'
+import { Settings } from './pages/Settings'
+
 function App() {
   return (
-    <div className="h-screen bg-gray-950 text-gray-100 flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-3xl font-bold tracking-tight mb-2">AzMap</h1>
-        <p className="text-gray-400 text-sm">Azure topology intelligence platform</p>
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<AppShell />}>
+          <Route index element={<Dashboard />} />
+          <Route path="tenancy" element={<TenancyTopology />} />
+          <Route path="topology" element={<Topology />} />
+          <Route path="tutorial" element={<Tutorial />} />
+          <Route path="import" element={<Import />} />
+          <Route path="export" element={<Export />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 

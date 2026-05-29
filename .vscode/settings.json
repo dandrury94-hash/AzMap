@@ -1,0 +1,4 @@
+{
+  "npm.packageManager": "pnpm",
+  "npm.autoDetect": "off"
+}

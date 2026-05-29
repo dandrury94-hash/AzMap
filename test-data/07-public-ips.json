@@ -1,0 +1,190 @@
+[
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/publicIPAddresses/pip-afw-hub",
+    "name": "pip-afw-hub",
+    "type": "Microsoft.Network/publicIPAddresses",
+    "location": "uksouth",
+    "resourceGroup": "rg-network",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "network", "costCenter": "CC001" },
+    "sku": { "name": "Standard", "tier": "Regional" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "publicIPAllocationMethod": "Static",
+      "publicIPAddressVersion": "IPv4",
+      "ipAddress": "20.90.10.1",
+      "idleTimeoutInMinutes": 4,
+      "dnsSettings": {
+        "domainNameLabel": "pip-afw-hub-contoso",
+        "fqdn": "pip-afw-hub-contoso.uksouth.cloudapp.azure.com"
+      }
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/publicIPAddresses/pip-bas-hub",
+    "name": "pip-bas-hub",
+    "type": "Microsoft.Network/publicIPAddresses",
+    "location": "uksouth",
+    "resourceGroup": "rg-network",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "network", "costCenter": "CC001" },
+    "sku": { "name": "Standard", "tier": "Regional" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "publicIPAllocationMethod": "Static",
+      "publicIPAddressVersion": "IPv4",
+      "ipAddress": "20.90.10.2",
+      "idleTimeoutInMinutes": 4,
+      "dnsSettings": {
+        "domainNameLabel": "pip-bas-hub-contoso",
+        "fqdn": "pip-bas-hub-contoso.uksouth.cloudapp.azure.com"
+      }
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/publicIPAddresses/pip-vpngw-hub",
+    "name": "pip-vpngw-hub",
+    "type": "Microsoft.Network/publicIPAddresses",
+    "location": "uksouth",
+    "resourceGroup": "rg-network",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "network", "costCenter": "CC001" },
+    "sku": { "name": "Standard", "tier": "Regional" },
+    "zones": ["1", "2", "3"],
+    "properties": {
+      "provisioningState": "Succeeded",
+      "publicIPAllocationMethod": "Static",
+      "publicIPAddressVersion": "IPv4",
+      "ipAddress": "20.90.10.3",
+      "idleTimeoutInMinutes": 4
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/publicIPAddresses/pip-appgw-prod",
+    "name": "pip-appgw-prod",
+    "type": "Microsoft.Network/publicIPAddresses",
+    "location": "uksouth",
+    "resourceGroup": "rg-compute",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "platform", "costCenter": "CC001" },
+    "sku": { "name": "Standard", "tier": "Regional" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "publicIPAllocationMethod": "Static",
+      "publicIPAddressVersion": "IPv4",
+      "ipAddress": "20.90.10.10",
+      "idleTimeoutInMinutes": 4,
+      "dnsSettings": {
+        "domainNameLabel": "agw-prod-contoso",
+        "fqdn": "agw-prod-contoso.uksouth.cloudapp.azure.com"
+      }
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/publicIPAddresses/pip-lb-web",
+    "name": "pip-lb-web",
+    "type": "Microsoft.Network/publicIPAddresses",
+    "location": "uksouth",
+    "resourceGroup": "rg-compute",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "platform", "costCenter": "CC001" },
+    "sku": { "name": "Standard", "tier": "Regional" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "publicIPAllocationMethod": "Static",
+      "publicIPAddressVersion": "IPv4",
+      "ipAddress": "20.90.10.11",
+      "idleTimeoutInMinutes": 4
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/publicIPAddresses/pip-ng-spoke",
+    "name": "pip-ng-spoke",
+    "type": "Microsoft.Network/publicIPAddresses",
+    "location": "uksouth",
+    "resourceGroup": "rg-network",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "network", "costCenter": "CC001" },
+    "sku": { "name": "Standard", "tier": "Regional" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "publicIPAllocationMethod": "Static",
+      "publicIPAddressVersion": "IPv4",
+      "ipAddress": "20.90.10.20",
+      "idleTimeoutInMinutes": 4
+    }
+  },
+  {
+    "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/publicIPAddresses/pip-afw-dr",
+    "name": "pip-afw-dr",
+    "type": "Microsoft.Network/publicIPAddresses",
+    "location": "ukwest",
+    "resourceGroup": "rg-network-dr",
+    "subscriptionId": "22222222-2222-2222-2222-222222222222",
+    "tags": { "env": "dr", "team": "network", "costCenter": "CC002" },
+    "sku": { "name": "Standard", "tier": "Regional" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "publicIPAllocationMethod": "Static",
+      "publicIPAddressVersion": "IPv4",
+      "ipAddress": "20.90.20.1",
+      "idleTimeoutInMinutes": 4,
+      "dnsSettings": {
+        "domainNameLabel": "pip-afw-dr-contoso",
+        "fqdn": "pip-afw-dr-contoso.ukwest.cloudapp.azure.com"
+      }
+    }
+  },
+  {
+    "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/publicIPAddresses/pip-bas-dr",
+    "name": "pip-bas-dr",
+    "type": "Microsoft.Network/publicIPAddresses",
+    "location": "ukwest",
+    "resourceGroup": "rg-network-dr",
+    "subscriptionId": "22222222-2222-2222-2222-222222222222",
+    "tags": { "env": "dr", "team": "network", "costCenter": "CC002" },
+    "sku": { "name": "Standard", "tier": "Regional" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "publicIPAllocationMethod": "Static",
+      "publicIPAddressVersion": "IPv4",
+      "ipAddress": "20.90.20.2",
+      "idleTimeoutInMinutes": 4
+    }
+  },
+  {
+    "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/publicIPAddresses/pip-vpngw-dr",
+    "name": "pip-vpngw-dr",
+    "type": "Microsoft.Network/publicIPAddresses",
+    "location": "ukwest",
+    "resourceGroup": "rg-network-dr",
+    "subscriptionId": "22222222-2222-2222-2222-222222222222",
+    "tags": { "env": "dr", "team": "network", "costCenter": "CC002" },
+    "sku": { "name": "Standard", "tier": "Regional" },
+    "zones": ["1", "2", "3"],
+    "properties": {
+      "provisioningState": "Succeeded",
+      "publicIPAllocationMethod": "Static",
+      "publicIPAddressVersion": "IPv4",
+      "ipAddress": "20.90.20.3",
+      "idleTimeoutInMinutes": 4
+    }
+  },
+  {
+    "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/publicIPAddresses/pip-ng-spoke-dr",
+    "name": "pip-ng-spoke-dr",
+    "type": "Microsoft.Network/publicIPAddresses",
+    "location": "ukwest",
+    "resourceGroup": "rg-network-dr",
+    "subscriptionId": "22222222-2222-2222-2222-222222222222",
+    "tags": { "env": "dr", "team": "network", "costCenter": "CC002" },
+    "sku": { "name": "Standard", "tier": "Regional" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "publicIPAllocationMethod": "Static",
+      "publicIPAddressVersion": "IPv4",
+      "ipAddress": "20.90.20.20",
+      "idleTimeoutInMinutes": 4
+    }
+  }
+]

@@ -1,0 +1,237 @@
+[
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/routeTables/udr-mgmt",
+    "name": "udr-mgmt",
+    "type": "Microsoft.Network/routeTables",
+    "location": "uksouth",
+    "resourceGroup": "rg-network",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "network", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "disableBgpRoutePropagation": true,
+      "routes": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/routeTables/udr-mgmt/routes/default-to-firewall",
+          "name": "default-to-firewall",
+          "properties": {
+            "addressPrefix": "0.0.0.0/0",
+            "nextHopType": "VirtualAppliance",
+            "nextHopIpAddress": "10.0.2.4",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/routeTables/udr-mgmt/routes/rfc1918-10-to-firewall",
+          "name": "rfc1918-10-to-firewall",
+          "properties": {
+            "addressPrefix": "10.0.0.0/8",
+            "nextHopType": "VirtualAppliance",
+            "nextHopIpAddress": "10.0.2.4",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/routeTables/udr-mgmt/routes/rfc1918-172-to-firewall",
+          "name": "rfc1918-172-to-firewall",
+          "properties": {
+            "addressPrefix": "172.16.0.0/12",
+            "nextHopType": "VirtualAppliance",
+            "nextHopIpAddress": "10.0.2.4",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/routeTables/udr-mgmt/routes/rfc1918-192-to-firewall",
+          "name": "rfc1918-192-to-firewall",
+          "properties": {
+            "addressPrefix": "192.168.0.0/16",
+            "nextHopType": "VirtualAppliance",
+            "nextHopIpAddress": "10.0.2.4",
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "subnets": [
+        { "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-hub/subnets/snet-mgmt" }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/routeTables/udr-spoke-app",
+    "name": "udr-spoke-app",
+    "type": "Microsoft.Network/routeTables",
+    "location": "uksouth",
+    "resourceGroup": "rg-network",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "network", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "disableBgpRoutePropagation": true,
+      "routes": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/routeTables/udr-spoke-app/routes/default-to-firewall",
+          "name": "default-to-firewall",
+          "properties": {
+            "addressPrefix": "0.0.0.0/0",
+            "nextHopType": "VirtualAppliance",
+            "nextHopIpAddress": "10.0.2.4",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/routeTables/udr-spoke-app/routes/rfc1918-10-to-firewall",
+          "name": "rfc1918-10-to-firewall",
+          "properties": {
+            "addressPrefix": "10.0.0.0/8",
+            "nextHopType": "VirtualAppliance",
+            "nextHopIpAddress": "10.0.2.4",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/routeTables/udr-spoke-app/routes/rfc1918-172-to-firewall",
+          "name": "rfc1918-172-to-firewall",
+          "properties": {
+            "addressPrefix": "172.16.0.0/12",
+            "nextHopType": "VirtualAppliance",
+            "nextHopIpAddress": "10.0.2.4",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/routeTables/udr-spoke-app/routes/rfc1918-192-to-firewall",
+          "name": "rfc1918-192-to-firewall",
+          "properties": {
+            "addressPrefix": "192.168.0.0/16",
+            "nextHopType": "VirtualAppliance",
+            "nextHopIpAddress": "10.0.2.4",
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "subnets": [
+        { "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app/subnets/snet-web" },
+        { "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app/subnets/snet-api" },
+        { "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app/subnets/snet-aks" }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/routeTables/udr-mgmt-dr",
+    "name": "udr-mgmt-dr",
+    "type": "Microsoft.Network/routeTables",
+    "location": "ukwest",
+    "resourceGroup": "rg-network-dr",
+    "subscriptionId": "22222222-2222-2222-2222-222222222222",
+    "tags": { "env": "dr", "team": "network", "costCenter": "CC002" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "disableBgpRoutePropagation": true,
+      "routes": [
+        {
+          "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/routeTables/udr-mgmt-dr/routes/default-to-firewall",
+          "name": "default-to-firewall",
+          "properties": {
+            "addressPrefix": "0.0.0.0/0",
+            "nextHopType": "VirtualAppliance",
+            "nextHopIpAddress": "10.10.2.4",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/routeTables/udr-mgmt-dr/routes/rfc1918-10-to-firewall",
+          "name": "rfc1918-10-to-firewall",
+          "properties": {
+            "addressPrefix": "10.0.0.0/8",
+            "nextHopType": "VirtualAppliance",
+            "nextHopIpAddress": "10.10.2.4",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/routeTables/udr-mgmt-dr/routes/rfc1918-172-to-firewall",
+          "name": "rfc1918-172-to-firewall",
+          "properties": {
+            "addressPrefix": "172.16.0.0/12",
+            "nextHopType": "VirtualAppliance",
+            "nextHopIpAddress": "10.10.2.4",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/routeTables/udr-mgmt-dr/routes/rfc1918-192-to-firewall",
+          "name": "rfc1918-192-to-firewall",
+          "properties": {
+            "addressPrefix": "192.168.0.0/16",
+            "nextHopType": "VirtualAppliance",
+            "nextHopIpAddress": "10.10.2.4",
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "subnets": [
+        { "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/virtualNetworks/vnet-hub-dr/subnets/snet-mgmt-dr" }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/routeTables/udr-spoke-dr",
+    "name": "udr-spoke-dr",
+    "type": "Microsoft.Network/routeTables",
+    "location": "ukwest",
+    "resourceGroup": "rg-network-dr",
+    "subscriptionId": "22222222-2222-2222-2222-222222222222",
+    "tags": { "env": "dr", "team": "network", "costCenter": "CC002" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "disableBgpRoutePropagation": true,
+      "routes": [
+        {
+          "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/routeTables/udr-spoke-dr/routes/default-to-firewall",
+          "name": "default-to-firewall",
+          "properties": {
+            "addressPrefix": "0.0.0.0/0",
+            "nextHopType": "VirtualAppliance",
+            "nextHopIpAddress": "10.10.2.4",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/routeTables/udr-spoke-dr/routes/rfc1918-10-to-firewall",
+          "name": "rfc1918-10-to-firewall",
+          "properties": {
+            "addressPrefix": "10.0.0.0/8",
+            "nextHopType": "VirtualAppliance",
+            "nextHopIpAddress": "10.10.2.4",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/routeTables/udr-spoke-dr/routes/rfc1918-172-to-firewall",
+          "name": "rfc1918-172-to-firewall",
+          "properties": {
+            "addressPrefix": "172.16.0.0/12",
+            "nextHopType": "VirtualAppliance",
+            "nextHopIpAddress": "10.10.2.4",
+            "provisioningState": "Succeeded"
+          }
+        },
+        {
+          "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/routeTables/udr-spoke-dr/routes/rfc1918-192-to-firewall",
+          "name": "rfc1918-192-to-firewall",
+          "properties": {
+            "addressPrefix": "192.168.0.0/16",
+            "nextHopType": "VirtualAppliance",
+            "nextHopIpAddress": "10.10.2.4",
+            "provisioningState": "Succeeded"
+          }
+        }
+      ],
+      "subnets": [
+        { "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-compute-dr/providers/Microsoft.Network/virtualNetworks/vnet-spoke-dr/subnets/snet-web-dr" },
+        { "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-compute-dr/providers/Microsoft.Network/virtualNetworks/vnet-spoke-dr/subnets/snet-api-dr" }
+      ]
+    }
+  }
+]

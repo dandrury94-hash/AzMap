@@ -1,0 +1,118 @@
+[
+  {
+    "displayName": "Tenant Root Group",
+    "id": "/providers/Microsoft.Management/managementGroups/33333333-3333-3333-3333-333333333333",
+    "name": "33333333-3333-3333-3333-333333333333",
+    "parent": null,
+    "tenantId": "33333333-3333-3333-3333-333333333333",
+    "type": "/providers/Microsoft.Management/managementGroups"
+  },
+  {
+    "displayName": "Contoso Root",
+    "id": "/providers/Microsoft.Management/managementGroups/contoso-root",
+    "name": "contoso-root",
+    "parent": {
+      "displayName": "Tenant Root Group",
+      "id": "/providers/Microsoft.Management/managementGroups/33333333-3333-3333-3333-333333333333",
+      "name": "33333333-3333-3333-3333-333333333333"
+    },
+    "tenantId": "33333333-3333-3333-3333-333333333333",
+    "type": "/providers/Microsoft.Management/managementGroups"
+  },
+  {
+    "displayName": "Contoso Production",
+    "id": "/providers/Microsoft.Management/managementGroups/contoso-production",
+    "name": "contoso-production",
+    "parent": {
+      "displayName": "Contoso Root",
+      "id": "/providers/Microsoft.Management/managementGroups/contoso-root",
+      "name": "contoso-root"
+    },
+    "tenantId": "33333333-3333-3333-3333-333333333333",
+    "type": "/providers/Microsoft.Management/managementGroups"
+  },
+  {
+    "displayName": "Contoso DR",
+    "id": "/providers/Microsoft.Management/managementGroups/contoso-dr",
+    "name": "contoso-dr",
+    "parent": {
+      "displayName": "Contoso Root",
+      "id": "/providers/Microsoft.Management/managementGroups/contoso-root",
+      "name": "contoso-root"
+    },
+    "tenantId": "33333333-3333-3333-3333-333333333333",
+    "type": "/providers/Microsoft.Management/managementGroups"
+  },
+  {
+    "displayName": "Contoso Production",
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111",
+    "name": "11111111-1111-1111-1111-111111111111",
+    "parent": {
+      "displayName": "Contoso Production",
+      "id": "/providers/Microsoft.Management/managementGroups/contoso-production",
+      "name": "contoso-production"
+    },
+    "tenantId": "33333333-3333-3333-3333-333333333333",
+    "type": "/subscriptions"
+  },
+  {
+    "displayName": "Contoso DR",
+    "id": "/subscriptions/22222222-2222-2222-2222-222222222222",
+    "name": "22222222-2222-2222-2222-222222222222",
+    "parent": {
+      "displayName": "Contoso DR",
+      "id": "/providers/Microsoft.Management/managementGroups/contoso-dr",
+      "name": "contoso-dr"
+    },
+    "tenantId": "33333333-3333-3333-3333-333333333333",
+    "type": "/subscriptions"
+  },
+  {
+    "displayName": "Contoso Prod West",
+    "id": "/subscriptions/33333333-3333-0000-1111-333333333333",
+    "name": "33333333-3333-0000-1111-333333333333",
+    "parent": {
+      "displayName": "Contoso Production",
+      "id": "/providers/Microsoft.Management/managementGroups/contoso-production",
+      "name": "contoso-production"
+    },
+    "tenantId": "33333333-3333-3333-3333-333333333333",
+    "type": "/subscriptions"
+  },
+  {
+    "displayName": "Contoso DR South",
+    "id": "/subscriptions/44444444-4444-0000-1111-444444444444",
+    "name": "44444444-4444-0000-1111-444444444444",
+    "parent": {
+      "displayName": "Contoso DR",
+      "id": "/providers/Microsoft.Management/managementGroups/contoso-dr",
+      "name": "contoso-dr"
+    },
+    "tenantId": "33333333-3333-3333-3333-333333333333",
+    "type": "/subscriptions"
+  },
+  {
+    "displayName": "Contoso Prod Japan",
+    "id": "/subscriptions/55555555-5555-0000-1111-555555555555",
+    "name": "55555555-5555-0000-1111-555555555555",
+    "parent": {
+      "displayName": "Contoso Production",
+      "id": "/providers/Microsoft.Management/managementGroups/contoso-production",
+      "name": "contoso-production"
+    },
+    "tenantId": "33333333-3333-3333-3333-333333333333",
+    "type": "/subscriptions"
+  },
+  {
+    "displayName": "Contoso DR Japan",
+    "id": "/subscriptions/66666666-6666-0000-1111-666666666666",
+    "name": "66666666-6666-0000-1111-666666666666",
+    "parent": {
+      "displayName": "Contoso DR",
+      "id": "/providers/Microsoft.Management/managementGroups/contoso-dr",
+      "name": "contoso-dr"
+    },
+    "tenantId": "33333333-3333-3333-3333-333333333333",
+    "type": "/subscriptions"
+  }
+]

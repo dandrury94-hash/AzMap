@@ -1,0 +1,58 @@
+[
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.ManagedIdentity/userAssignedIdentities/mi-aks-prod",
+    "name": "mi-aks-prod",
+    "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
+    "location": "uksouth",
+    "resourceGroup": "rg-compute",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "platform", "costCenter": "CC001" },
+    "properties": {
+      "tenantId": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "principalId": "aaaaaaaa-0001-0001-0001-aaaaaaaaaaaa",
+      "clientId": "bbbbbbbb-0001-0001-0001-bbbbbbbbbbbb"
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-apps/providers/Microsoft.ManagedIdentity/userAssignedIdentities/mi-appservice-prod",
+    "name": "mi-appservice-prod",
+    "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
+    "location": "uksouth",
+    "resourceGroup": "rg-apps",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "apps", "costCenter": "CC001" },
+    "properties": {
+      "tenantId": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "principalId": "aaaaaaaa-0002-0002-0002-aaaaaaaaaaaa",
+      "clientId": "bbbbbbbb-0002-0002-0002-bbbbbbbbbbbb"
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.ManagedIdentity/userAssignedIdentities/mi-vm-mgmt",
+    "name": "mi-vm-mgmt",
+    "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
+    "location": "uksouth",
+    "resourceGroup": "rg-compute",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "platform", "costCenter": "CC001" },
+    "properties": {
+      "tenantId": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "principalId": "aaaaaaaa-0003-0003-0003-aaaaaaaaaaaa",
+      "clientId": "bbbbbbbb-0003-0003-0003-bbbbbbbbbbbb"
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-apps/providers/Microsoft.ManagedIdentity/userAssignedIdentities/mi-pipeline-prod",
+    "name": "mi-pipeline-prod",
+    "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
+    "location": "uksouth",
+    "resourceGroup": "rg-apps",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "apps", "costCenter": "CC001" },
+    "properties": {
+      "tenantId": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "principalId": "aaaaaaaa-0004-0004-0004-aaaaaaaaaaaa",
+      "clientId": "bbbbbbbb-0004-0004-0004-bbbbbbbbbbbb"
+    }
+  }
+]

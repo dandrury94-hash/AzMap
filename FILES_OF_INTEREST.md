@@ -289,28 +289,40 @@ Builds topology-specific graph projections for rendering and export.
 ### Purpose
 Visualizes topology projections.
 
-### Likely Locations
-- `/src/ui`
-- `/src/components`
-- `/src/rendering`
+### Actual Locations (implemented)
+- `apps/frontend/src/topology/containerLayout.ts` — layout engine: computes React Flow node positions from graph `Contains` edges; defines swimlane, region column, and container sizing
+- `apps/frontend/src/topology/toFlowElements.ts` — converts `GraphEdge[]` → React Flow `Edge[]`; applies colour/style per `RelationshipType`
+- `apps/frontend/src/topology/AzureNode.tsx` — leaf resource node (VM, NIC, NSG, etc.)
+- `apps/frontend/src/topology/AzureContainer.tsx` — container node (RG, VNet, Subnet); centred target handle, border source handle
+- `apps/frontend/src/topology/AzureSwimLane.tsx` — swimlane node (Subscription, ManagementGroup); vertical left label strip
+- `apps/frontend/src/topology/AzureRegionColumn.tsx` — region column node; overflows swimlane top/bottom by `REGION_OVERHANG`
+- `apps/frontend/src/topology/NodeDetailPanel.tsx` — right-side flyout panel; shows selected node metadata and raw JSON payload
+- `apps/frontend/src/topology/nodeConfig.ts` — shared config per `ResourceType`: label, accent colour, icon component
+- `apps/frontend/src/topology/icons.ts` — direct deep-import workaround for `@threeveloper/azure-react-icons` (broken barrel)
+- `apps/frontend/src/pages/Topology.tsx` — React Flow canvas page; wires node types, click handlers, detail panel
+- `apps/frontend/src/fixtures/azure-topology.ts` — demo topology: UK South + UK West HA/failover, single subscription
 
 ### Responsibilities
 - React Flow rendering
-- Node rendering
-- Edge rendering
-- Layout handling
-- Interaction behavior
+- Node rendering (three modes: leaf, container, swimlane/region)
+- Edge rendering with semantic colour coding
+- Containment-driven layout (graph edges → nested React Flow nodes)
+- Interaction behavior (click to inspect, pan/zoom)
 
 ### Rules
-- Rendering consumes projections
-- Rendering must remain topology-agnostic
+- Layout is driven entirely by `Contains` edges — the engine must not infer containment from resource types
+- Handle positioning on containers is semantic: target = centred (attachment), source = border (boundary)
+- `SWIMLANE_W` in `containerLayout.ts` and `STRIP_W` in `AzureSwimLane.tsx` must remain equal
+- `REGION_OVERHANG` in `containerLayout.ts` is the single constant controlling region protrusion
+- Rendering must remain topology-agnostic: no relationship inference in components
 
 ### Must NOT
 - Derive topology independently
 - Mutate graph state
+- Infer `Contains` relationships from resource type names
 
 ### Related Decisions
-- ADR-005
+- ADR-005, ADR-015, ADR-016
 
 ---
 

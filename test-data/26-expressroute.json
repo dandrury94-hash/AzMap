@@ -1,0 +1,52 @@
+[
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/expressRouteCircuits/erc-contoso-prod",
+    "name": "erc-contoso-prod",
+    "type": "Microsoft.Network/expressRouteCircuits",
+    "location": "uksouth",
+    "resourceGroup": "rg-network",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "network", "costCenter": "CC001" },
+    "sku": {
+      "name": "Premium_MeteredData",
+      "tier": "Premium",
+      "family": "MeteredData"
+    },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "circuitProvisioningState": "Enabled",
+      "serviceProviderProvisioningState": "Provisioned",
+      "serviceKey": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+      "serviceProviderProperties": {
+        "serviceProviderName": "BT",
+        "peeringLocation": "London",
+        "bandwidthInMbps": 1000
+      },
+      "expressRoutePort": null,
+      "bandwidthInGbps": null,
+      "stag": 1,
+      "peerings": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/expressRouteCircuits/erc-contoso-prod/peerings/AzurePrivatePeering",
+          "name": "AzurePrivatePeering",
+          "type": "Microsoft.Network/expressRouteCircuits/peerings",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "peeringType": "AzurePrivatePeering",
+            "state": "Enabled",
+            "azureASN": 12076,
+            "peerASN": 65100,
+            "primaryPeerAddressPrefix": "192.0.2.0/30",
+            "secondaryPeerAddressPrefix": "192.0.2.4/30",
+            "primaryAzurePort": "",
+            "secondaryAzurePort": "",
+            "vlanId": 100,
+            "microsoftPeeringConfig": null,
+            "lastModifiedBy": "Customer"
+          }
+        }
+      ],
+      "authorizations": []
+    }
+  }
+]

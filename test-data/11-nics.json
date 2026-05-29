@@ -1,0 +1,303 @@
+[
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/networkInterfaces/nic-vm-mgmt-01",
+    "name": "nic-vm-mgmt-01",
+    "type": "Microsoft.Network/networkInterfaces",
+    "location": "uksouth",
+    "resourceGroup": "rg-compute",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "platform", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "enableAcceleratedNetworking": true,
+      "enableIPForwarding": false,
+      "networkSecurityGroup": {
+        "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/networkSecurityGroups/nsg-snet-mgmt"
+      },
+      "ipConfigurations": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/networkInterfaces/nic-vm-mgmt-01/ipConfigurations/ipconfig1",
+          "name": "ipconfig1",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "primary": true,
+            "privateIPAddress": "10.0.4.10",
+            "privateIPAllocationMethod": "Static",
+            "privateIPAddressVersion": "IPv4",
+            "subnet": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-hub/subnets/snet-mgmt"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/networkInterfaces/nic-vm-mgmt-02",
+    "name": "nic-vm-mgmt-02",
+    "type": "Microsoft.Network/networkInterfaces",
+    "location": "uksouth",
+    "resourceGroup": "rg-compute",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "platform", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "enableAcceleratedNetworking": true,
+      "enableIPForwarding": false,
+      "ipConfigurations": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/networkInterfaces/nic-vm-mgmt-02/ipConfigurations/ipconfig1",
+          "name": "ipconfig1",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "primary": true,
+            "privateIPAddress": "10.0.4.11",
+            "privateIPAllocationMethod": "Static",
+            "privateIPAddressVersion": "IPv4",
+            "subnet": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-hub/subnets/snet-mgmt"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/networkInterfaces/nic-vm-jumpbox-01",
+    "name": "nic-vm-jumpbox-01",
+    "type": "Microsoft.Network/networkInterfaces",
+    "location": "uksouth",
+    "resourceGroup": "rg-compute",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "network", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "enableAcceleratedNetworking": false,
+      "enableIPForwarding": false,
+      "ipConfigurations": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/networkInterfaces/nic-vm-jumpbox-01/ipConfigurations/ipconfig1",
+          "name": "ipconfig1",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "primary": true,
+            "privateIPAddress": "10.0.5.4",
+            "privateIPAllocationMethod": "Static",
+            "privateIPAddressVersion": "IPv4",
+            "subnet": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-hub/subnets/snet-jumpbox"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/networkInterfaces/nic-vm-web-01",
+    "name": "nic-vm-web-01",
+    "type": "Microsoft.Network/networkInterfaces",
+    "location": "uksouth",
+    "resourceGroup": "rg-compute",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "platform", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "enableAcceleratedNetworking": true,
+      "enableIPForwarding": false,
+      "ipConfigurations": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/networkInterfaces/nic-vm-web-01/ipConfigurations/ipconfig1",
+          "name": "ipconfig1",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "primary": true,
+            "privateIPAddress": "10.1.1.10",
+            "privateIPAllocationMethod": "Static",
+            "privateIPAddressVersion": "IPv4",
+            "subnet": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app/subnets/snet-web"
+            },
+            "loadBalancerBackendAddressPools": [
+              {
+                "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-web-prod/backendAddressPools/bepool-web"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/networkInterfaces/nic-vm-web-02",
+    "name": "nic-vm-web-02",
+    "type": "Microsoft.Network/networkInterfaces",
+    "location": "uksouth",
+    "resourceGroup": "rg-compute",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "platform", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "enableAcceleratedNetworking": true,
+      "enableIPForwarding": false,
+      "ipConfigurations": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/networkInterfaces/nic-vm-web-02/ipConfigurations/ipconfig1",
+          "name": "ipconfig1",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "primary": true,
+            "privateIPAddress": "10.1.1.11",
+            "privateIPAllocationMethod": "Static",
+            "privateIPAddressVersion": "IPv4",
+            "subnet": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app/subnets/snet-web"
+            },
+            "loadBalancerBackendAddressPools": [
+              {
+                "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-web-prod/backendAddressPools/bepool-web"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/networkInterfaces/nic-vm-api-01",
+    "name": "nic-vm-api-01",
+    "type": "Microsoft.Network/networkInterfaces",
+    "location": "uksouth",
+    "resourceGroup": "rg-compute",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "platform", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "enableAcceleratedNetworking": true,
+      "enableIPForwarding": false,
+      "ipConfigurations": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/networkInterfaces/nic-vm-api-01/ipConfigurations/ipconfig1",
+          "name": "ipconfig1",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "primary": true,
+            "privateIPAddress": "10.1.2.10",
+            "privateIPAllocationMethod": "Static",
+            "privateIPAddressVersion": "IPv4",
+            "subnet": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app/subnets/snet-api"
+            },
+            "loadBalancerBackendAddressPools": [
+              {
+                "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-api-prod/backendAddressPools/bepool-api"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/networkInterfaces/nic-vm-api-02",
+    "name": "nic-vm-api-02",
+    "type": "Microsoft.Network/networkInterfaces",
+    "location": "uksouth",
+    "resourceGroup": "rg-compute",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "platform", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "enableAcceleratedNetworking": true,
+      "enableIPForwarding": false,
+      "ipConfigurations": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/networkInterfaces/nic-vm-api-02/ipConfigurations/ipconfig1",
+          "name": "ipconfig1",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "primary": true,
+            "privateIPAddress": "10.1.2.11",
+            "privateIPAllocationMethod": "Static",
+            "privateIPAddressVersion": "IPv4",
+            "subnet": {
+              "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app/subnets/snet-api"
+            },
+            "loadBalancerBackendAddressPools": [
+              {
+                "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-compute/providers/Microsoft.Network/loadBalancers/lb-api-prod/backendAddressPools/bepool-api"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-compute-dr/providers/Microsoft.Network/networkInterfaces/nic-vm-mgmt-dr-01",
+    "name": "nic-vm-mgmt-dr-01",
+    "type": "Microsoft.Network/networkInterfaces",
+    "location": "ukwest",
+    "resourceGroup": "rg-compute-dr",
+    "subscriptionId": "22222222-2222-2222-2222-222222222222",
+    "tags": { "env": "dr", "team": "platform", "costCenter": "CC002" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "enableAcceleratedNetworking": true,
+      "enableIPForwarding": false,
+      "networkSecurityGroup": {
+        "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/networkSecurityGroups/nsg-snet-mgmt-dr"
+      },
+      "ipConfigurations": [
+        {
+          "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-compute-dr/providers/Microsoft.Network/networkInterfaces/nic-vm-mgmt-dr-01/ipConfigurations/ipconfig1",
+          "name": "ipconfig1",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "primary": true,
+            "privateIPAddress": "10.10.4.10",
+            "privateIPAllocationMethod": "Static",
+            "privateIPAddressVersion": "IPv4",
+            "subnet": {
+              "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/virtualNetworks/vnet-hub-dr/subnets/snet-mgmt-dr"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-compute-dr/providers/Microsoft.Network/networkInterfaces/nic-vm-web-dr-01",
+    "name": "nic-vm-web-dr-01",
+    "type": "Microsoft.Network/networkInterfaces",
+    "location": "ukwest",
+    "resourceGroup": "rg-compute-dr",
+    "subscriptionId": "22222222-2222-2222-2222-222222222222",
+    "tags": { "env": "dr", "team": "platform", "costCenter": "CC002" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "enableAcceleratedNetworking": true,
+      "enableIPForwarding": false,
+      "ipConfigurations": [
+        {
+          "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-compute-dr/providers/Microsoft.Network/networkInterfaces/nic-vm-web-dr-01/ipConfigurations/ipconfig1",
+          "name": "ipconfig1",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "primary": true,
+            "privateIPAddress": "10.11.1.10",
+            "privateIPAllocationMethod": "Static",
+            "privateIPAddressVersion": "IPv4",
+            "subnet": {
+              "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-compute-dr/providers/Microsoft.Network/virtualNetworks/vnet-spoke-dr/subnets/snet-web-dr"
+            },
+            "loadBalancerBackendAddressPools": [
+              {
+                "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-compute-dr/providers/Microsoft.Network/loadBalancers/lb-web-dr/backendAddressPools/bepool-web-dr"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+]

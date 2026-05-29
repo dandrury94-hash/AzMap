@@ -1,0 +1,173 @@
+[
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-data/providers/Microsoft.Storage/storageAccounts/stprodlogs001",
+    "name": "stprodlogs001",
+    "type": "Microsoft.Storage/storageAccounts",
+    "location": "uksouth",
+    "resourceGroup": "rg-data",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "platform", "costCenter": "CC001" },
+    "sku": { "name": "Standard_GRS", "tier": "Standard" },
+    "kind": "StorageV2",
+    "properties": {
+      "provisioningState": "Succeeded",
+      "primaryLocation": "uksouth",
+      "secondaryLocation": "ukwest",
+      "statusOfPrimary": "available",
+      "statusOfSecondary": "available",
+      "primaryEndpoints": {
+        "blob": "https://stprodlogs001.blob.core.windows.net/",
+        "file": "https://stprodlogs001.file.core.windows.net/",
+        "table": "https://stprodlogs001.table.core.windows.net/",
+        "queue": "https://stprodlogs001.queue.core.windows.net/"
+      },
+      "encryption": {
+        "requireInfrastructureEncryption": true,
+        "keySource": "Microsoft.Storage",
+        "services": {
+          "blob": { "enabled": true, "keyType": "Account" },
+          "file": { "enabled": true, "keyType": "Account" }
+        }
+      },
+      "accessTier": "Hot",
+      "supportsHttpsTrafficOnly": true,
+      "minimumTlsVersion": "TLS1_2",
+      "allowBlobPublicAccess": false,
+      "allowSharedKeyAccess": false,
+      "networkAcls": {
+        "bypass": "AzureServices",
+        "defaultAction": "Deny",
+        "virtualNetworkRules": [
+          {
+            "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app/subnets/snet-api",
+            "action": "Allow",
+            "state": "Succeeded"
+          }
+        ],
+        "ipRules": []
+      }
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-backup/providers/Microsoft.Storage/storageAccounts/stprodbackup001",
+    "name": "stprodbackup001",
+    "type": "Microsoft.Storage/storageAccounts",
+    "location": "uksouth",
+    "resourceGroup": "rg-backup",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "platform", "costCenter": "CC001" },
+    "sku": { "name": "Standard_GZRS", "tier": "Standard" },
+    "kind": "BlobStorage",
+    "properties": {
+      "provisioningState": "Succeeded",
+      "primaryLocation": "uksouth",
+      "secondaryLocation": "ukwest",
+      "statusOfPrimary": "available",
+      "statusOfSecondary": "available",
+      "primaryEndpoints": {
+        "blob": "https://stprodbackup001.blob.core.windows.net/"
+      },
+      "encryption": {
+        "requireInfrastructureEncryption": true,
+        "keySource": "Microsoft.Storage",
+        "services": {
+          "blob": { "enabled": true, "keyType": "Account" }
+        }
+      },
+      "accessTier": "Cool",
+      "supportsHttpsTrafficOnly": true,
+      "minimumTlsVersion": "TLS1_2",
+      "allowBlobPublicAccess": false,
+      "allowSharedKeyAccess": false,
+      "networkAcls": {
+        "bypass": "AzureServices",
+        "defaultAction": "Deny",
+        "virtualNetworkRules": [],
+        "ipRules": []
+      }
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-apps/providers/Microsoft.Storage/storageAccounts/stprodstatic001",
+    "name": "stprodstatic001",
+    "type": "Microsoft.Storage/storageAccounts",
+    "location": "uksouth",
+    "resourceGroup": "rg-apps",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "apps", "costCenter": "CC001" },
+    "sku": { "name": "Standard_LRS", "tier": "Standard" },
+    "kind": "StorageV2",
+    "properties": {
+      "provisioningState": "Succeeded",
+      "primaryLocation": "uksouth",
+      "statusOfPrimary": "available",
+      "primaryEndpoints": {
+        "blob": "https://stprodstatic001.blob.core.windows.net/",
+        "web": "https://stprodstatic001.z33.web.core.windows.net/"
+      },
+      "encryption": {
+        "keySource": "Microsoft.Storage",
+        "services": {
+          "blob": { "enabled": true, "keyType": "Account" }
+        }
+      },
+      "accessTier": "Hot",
+      "supportsHttpsTrafficOnly": true,
+      "minimumTlsVersion": "TLS1_2",
+      "allowBlobPublicAccess": true,
+      "allowSharedKeyAccess": true,
+      "staticWebsite": {
+        "enabled": true,
+        "indexDocument": "index.html",
+        "errorDocument404Path": "404.html"
+      },
+      "networkAcls": {
+        "bypass": "AzureServices",
+        "defaultAction": "Allow",
+        "virtualNetworkRules": [],
+        "ipRules": []
+      }
+    }
+  },
+  {
+    "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-backup-dr/providers/Microsoft.Storage/storageAccounts/stdrlogs001",
+    "name": "stdrlogs001",
+    "type": "Microsoft.Storage/storageAccounts",
+    "location": "ukwest",
+    "resourceGroup": "rg-backup-dr",
+    "subscriptionId": "22222222-2222-2222-2222-222222222222",
+    "tags": { "env": "dr", "team": "platform", "costCenter": "CC002" },
+    "sku": { "name": "Standard_LRS", "tier": "Standard" },
+    "kind": "StorageV2",
+    "properties": {
+      "provisioningState": "Succeeded",
+      "primaryLocation": "ukwest",
+      "statusOfPrimary": "available",
+      "primaryEndpoints": {
+        "blob": "https://stdrlogs001.blob.core.windows.net/",
+        "file": "https://stdrlogs001.file.core.windows.net/",
+        "table": "https://stdrlogs001.table.core.windows.net/",
+        "queue": "https://stdrlogs001.queue.core.windows.net/"
+      },
+      "encryption": {
+        "requireInfrastructureEncryption": true,
+        "keySource": "Microsoft.Storage",
+        "services": {
+          "blob": { "enabled": true, "keyType": "Account" },
+          "file": { "enabled": true, "keyType": "Account" }
+        }
+      },
+      "accessTier": "Hot",
+      "supportsHttpsTrafficOnly": true,
+      "minimumTlsVersion": "TLS1_2",
+      "allowBlobPublicAccess": false,
+      "allowSharedKeyAccess": false,
+      "networkAcls": {
+        "bypass": "AzureServices",
+        "defaultAction": "Deny",
+        "virtualNetworkRules": [],
+        "ipRules": []
+      }
+    }
+  }
+]

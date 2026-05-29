@@ -1,0 +1,55 @@
+[
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/localNetworkGateways/lgw-onprem-london",
+    "name": "lgw-onprem-london",
+    "type": "Microsoft.Network/localNetworkGateways",
+    "location": "uksouth",
+    "resourceGroup": "rg-network",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "network", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "gatewayIpAddress": "203.0.113.50",
+      "localNetworkAddressSpace": {
+        "addressPrefixes": ["192.168.0.0/16", "172.16.0.0/12"]
+      },
+      "bgpSettings": {
+        "asn": 65100,
+        "bgpPeeringAddress": "192.168.1.254",
+        "peerWeight": 0
+      }
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/localNetworkGateways/lgw-onprem-manchester",
+    "name": "lgw-onprem-manchester",
+    "type": "Microsoft.Network/localNetworkGateways",
+    "location": "uksouth",
+    "resourceGroup": "rg-network",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "network", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "gatewayIpAddress": "203.0.113.100",
+      "localNetworkAddressSpace": {
+        "addressPrefixes": ["172.20.0.0/14"]
+      }
+    }
+  },
+  {
+    "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/localNetworkGateways/lgw-onprem-dr",
+    "name": "lgw-onprem-dr",
+    "type": "Microsoft.Network/localNetworkGateways",
+    "location": "ukwest",
+    "resourceGroup": "rg-network-dr",
+    "subscriptionId": "22222222-2222-2222-2222-222222222222",
+    "tags": { "env": "dr", "team": "network", "costCenter": "CC002" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "gatewayIpAddress": "203.0.113.200",
+      "localNetworkAddressSpace": {
+        "addressPrefixes": ["192.168.0.0/16"]
+      }
+    }
+  }
+]

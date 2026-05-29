@@ -41,28 +41,18 @@ Tasks should:
 
 ## In Progress
 
-### Governance & Repository Foundations
-- [ ] Finalize governance markdown structure
-- [ ] Finalize architectural guidance documents
-- [ ] Establish implementation workflow standards
+Nothing actively in progress.
 
 ---
 
-## Completed This Session
+## Recently Completed (CHG-038 → CHG-043)
 
-### Platform Vision
-- [x] Defined AzMap long-term platform vision
-- [x] Defined Azure-focused platform scope
-- [x] Defined graph-centric architecture direction
-- [x] Defined overlay and simulation philosophy
-- [x] Defined progressive rendering philosophy
-
-### Governance Foundations
-- [x] Created MASTER_PROJECT_BRIEF.md
-- [x] Expanded DECISIONS.md architecture governance
-- [x] Expanded CLAUDE.md operational governance
-- [x] Expanded CHANGE_IMPACT_MAP.md
-- [x] Expanded FILES_OF_INTEREST.md
+- [x] CHG-043 — Combined `test-data/00-environment.json` (156-resource full-environment import)
+- [x] CHG-042 — Distinct edge color palette + `RelationshipEdge` HTML-layer labels
+- [x] CHG-041 — Per-peer VNet handles + canvas-level peering bus zone (no card-header intersection)
+- [x] CHG-040 — Hold-Ctrl pan mode (PanOverlay, badge indicator)
+- [x] CHG-039 — Settings panel: edge visibility, resource visibility, layout controls, Legend overlay
+- [x] CHG-038 — VNet-affinity column sort + chain layout for RG leaf nodes
 
 ---
 
@@ -119,15 +109,16 @@ Establish deterministic architecture foundations before feature expansion.
 ## Repository Foundations
 
 ### Status
-In Progress
+Complete
+
+### Completed
+- [x] Governance documentation (CLAUDE.md, DECISIONS.md, MASTER_PROJECT_BRIEF.md, CHANGE_IMPACT_MAP.md, FILES_OF_INTEREST.md, CHANGELOG.md, tasks/lessons.md, tasks/todo.md)
+- [x] pnpm monorepo structure (`apps/frontend`, `packages/shared`)
+- [x] Architectural layer boundaries defined and enforced
+- [x] TypeScript strict mode throughout
 
 ### Tasks
-- [ ] Finalize governance documentation
-- [ ] Define initial repository structure
-- [ ] Define architectural layer boundaries
-- [ ] Define naming conventions
-- [ ] Define TypeScript standards
-- [ ] Define testing strategy
+- [ ] Define testing strategy (unit tests for normalizer, layout engine)
 - [ ] Define logging strategy
 
 ### Learning Goals
@@ -141,15 +132,24 @@ In Progress
 ## Frontend Foundation
 
 ### Status
-Pending
+In Progress
+
+### Completed
+- [x] Initialize React application (Vite + React + TypeScript + Tailwind)
+- [x] Configure TypeScript (strict mode, monorepo paths)
+- [x] Configure routing (React Router v6, nested layout)
+- [x] App shell with sidebar nav (Dashboard, Topology, Import, Settings)
+- [x] Dashboard page with intro/tutorial content and import CTA
+- [x] Topology page (React Flow canvas, demo topology)
+- [x] Favicon (AzM)
 
 ### Tasks
-- [ ] Initialize React application
-- [ ] Configure TypeScript
-- [ ] Configure linting and formatting
-- [ ] Configure routing
-- [ ] Configure state management approach
-- [ ] Configure UI component structure
+- [ ] Configure linting and formatting (ESLint, Prettier)
+- [ ] Configure state management approach (global graph state)
+- [ ] **Add Export to sidebar nav** — below Import; always visible
+- [ ] **Add Tutorial/Help to sidebar nav** — above Import; always visible; persists regardless of import state
+- [ ] **Tutorial content per import type** — dedicated tutorial page/panel for each import format (JSON, ARM, Resource Graph); explains what the format is, how to get it from Azure, and what AzMap will extract from it
+- [ ] **Topology dropdown** — replace Topology nav link with a dropdown showing available projections (see Phase 5: Topology Projection Dropdown)
 
 ### Learning Goals
 - React architecture
@@ -189,16 +189,19 @@ Support deterministic ingestion of Azure topology data.
 ## Import System
 
 ### Status
-Pending
+Complete (CHG-002 through CHG-012)
+
+### Completed
+- [x] JSON import (drag-and-drop, paste) — flat array, `{ value }`, `{ data }`, `{ resources }` envelopes
+- [x] AzMap native format import/export (`.azmap.json`)
+- [x] Immutable raw payload preservation
+- [x] Import validation and diagnostics panel
+- [x] 54 Azure resource types across all major resource provider namespaces (CHG-012)
 
 ### Tasks
-- [ ] Define import interfaces
-- [ ] Implement JSON import
-- [ ] Implement ARM import
-- [ ] Implement Resource Graph import
-- [ ] Preserve immutable raw payloads
-- [ ] Add import validation
-- [ ] Add import diagnostics
+- [ ] ARM template import
+- [ ] Resource Graph query import
+- [ ] **Tutorial content per import type** — each format gets a dedicated tutorial explaining: what it is, how to export it from Azure (portal steps or CLI command), and what AzMap extracts from it. Tutorial is accessible from the sidebar at all times (not gated by import state).
 
 ### Learning Goals
 - Parsing pipelines
@@ -211,14 +214,21 @@ Pending
 ## Normalization Layer
 
 ### Status
-Pending
+Complete (CHG-002 through CHG-013)
+
+### Completed
+- [x] Canonical `GraphNode` / `GraphEdge` contracts (`@azmap/shared`)
+- [x] Two-pass normalization (Pass 1: nodes; Pass 2: cross-resource edges)
+- [x] `AZURE_TYPE_MAP` as single translation point for ARM type strings
+- [x] Lazy hierarchy materialization (Subscription, Region, ResourceGroup synthesised on demand)
+- [x] `extractNetworkRelationships()` — NIC, NSG, Subnet, LB, AZFW, vHub relationships
+- [x] Full JSDoc documentation on all normalizer functions (CHG-013)
+- [x] ADR-017 (two-pass strategy) and ADR-018 (silent-skip policy) in DECISIONS.md
 
 ### Tasks
-- [ ] Define canonical entity contracts
-- [ ] Define canonical relationship contracts
-- [ ] Implement entity normalization
-- [ ] Implement relationship generation
-- [ ] Define resource identity rules
+- [ ] Relationship coverage: RoutesTo edges from Route Table → next-hop targets
+- [ ] Relationship coverage: PrivateEndpoint → target service
+- [ ] Relationship coverage: TrafficManager → backend endpoints
 
 ### Learning Goals
 - Data normalization
@@ -238,15 +248,19 @@ Establish the authoritative topology model.
 ## Graph Foundation
 
 ### Status
-Pending
+Complete (CHG-002 through CHG-014)
+
+### Completed
+- [x] `GraphNode` and `GraphEdge` contracts in `@azmap/shared`
+- [x] `RelationshipType` enum (8 types: Contains, AttachedTo, ConnectedTo, SecuredBy, RoutesTo, PeeredWith, DependsOn, FailsOverTo)
+- [x] `ResourceType` enum (54+ types) with stability contract (string == enum key)
+- [x] Zustand `graphStore` (full-replacement `setGraph`, `clearGraph`)
+- [x] Deterministic node IDs via `nid()` (lowercase ARM ID)
+- [x] Deterministic edge IDs via `eid()` (last-2-segments of source + target)
 
 ### Tasks
-- [ ] Define graph schema
-- [ ] Define node contracts
-- [ ] Define edge contracts
-- [ ] Implement graph storage structures
-- [ ] Implement graph validation
-- [ ] Implement graph integrity checks
+- [ ] Graph integrity validation (detect orphaned edges, missing nodes)
+- [ ] Graph query API (find neighbors, traverse by relationship type, filter by resource type)
 
 ### Learning Goals
 - Graph modeling
@@ -259,15 +273,14 @@ Pending
 ## Initial Supported Topology
 
 ### Status
-Pending
+Complete
 
-### Initial Scope
-- [ ] Management Groups
-- [ ] Subscriptions
-- [ ] Virtual Networks
-- [ ] Virtual Machines
-- [ ] NICs
-- [ ] NSGs
+### Completed
+- [x] Management Groups (hierarchy tree with MgBusEdge fan-out rendering)
+- [x] Subscriptions (swimlane layout)
+- [x] Virtual Networks (with per-peer handles, peering bus zone)
+- [x] Virtual Machines, NICs, NSGs, Subnets, Route Tables, PIPs
+- [x] All 54+ resource types rendered with icons
 
 ### Learning Goals
 - Azure topology structure
@@ -331,15 +344,26 @@ Pending
 ## Rendering System
 
 ### Status
-Pending
+In Progress (core complete, enhancements ongoing)
+
+### Completed
+- [x] React Flow integration
+- [x] Node types: `azureNode`, `azureContainer`, `azureSwimLane`, `azureRegionColumn`
+- [x] Edge types: `BusEdge`, `MgBusEdge`, `PeeringEdge`, `RelationshipEdge` (all with HTML-layer labels)
+- [x] Containment-driven layout (`containerLayout.ts`)
+- [x] Subscription swimlane + region column overhang layout
+- [x] MG hierarchy fan-out with `MgBusEdge` (single trunk, N tines — CHG-037)
+- [x] VNet peering: per-peer handles spread across top edge, canvas-level bus zone (CHG-041)
+- [x] VNet-affinity column sort + chain layout for RG leaf nodes (CHG-038)
+- [x] Edge visibility, resource visibility, layout controls in Settings (CHG-039)
+- [x] Legend overlay (CHG-039)
+- [x] Distinct perceptually-separate edge color palette (CHG-042)
+- [x] Hold-Ctrl pan mode (CHG-040)
+- [x] Node detail flyout panel (raw JSON + metadata)
 
 ### Tasks
-- [ ] Integrate React Flow
-- [ ] Define node rendering system
-- [ ] Define edge rendering system
-- [ ] Implement topology layouts
-- [ ] Implement zoom-level rendering behavior
-- [ ] Implement layered topology navigation
+- [ ] Zoom-level rendering behavior (progressive detail: collapse small nodes at low zoom)
+- [ ] Layered topology navigation (see Topology Projection Dropdown below)
 
 ### Learning Goals
 - Visualization architecture
@@ -349,23 +373,124 @@ Pending
 
 ---
 
-# Phase 6 — Export Systems
+## Topology Projection Dropdown
 
-Goal:
-Export topology views into reusable formats.
+### Status
+Pending (depends on: stable graph contracts, import pipeline, projection layer)
+
+### Description
+The Topology nav item becomes a dropdown. Each entry is a named projection of the canonical graph — a different analytical "lens" over the same data. Projections become available automatically as the graph accumulates the relevant resource types during ingestion. Unavailable projections are shown as disabled/greyed.
+
+**BCP/DR and Governance are NOT projections — they are overlay toggles** (see Overlay Toggles below). The dropdown contains only structural/topological views. Analytical interpretations are layered on top via overlay controls.
+
+Planned projections (order reflects dependency complexity):
+1. **Subscription Layout** — current implementation; subscription swimlane + region columns + RG contents
+2. **Tenant & Management Group Structure** — MG hierarchy tree; available when MG nodes exist
+3. **Network Connectivity** — VNet peering, subnet routing, NIC→subnet attachment, gateway flows
+4. **Security** — NSG rule coverage, subnet security posture, exposed surfaces
+
+### Tasks
+- [ ] Define projection interface contract (input: graph slice; output: React Flow nodes + edges)
+- [ ] Implement projection registry (which projections exist, what data they require)
+- [ ] Implement projection availability detection (graph has required node/edge types?)
+- [ ] Build Topology dropdown UI (disable unavailable projections with tooltip)
+- [ ] Implement Subscription Layout as first formal projection (extract from current Topology.tsx)
+- [ ] Implement MG Structure projection
+- [ ] Implement Network Connectivity projection
+- [ ] Implement Security projection
+
+### Architectural Notes
+- Each projection consumes the canonical graph; none may infer relationships independently
+- Projections are stateless transforms: graph → layout — no caching of computed layouts in the graph layer
+- The dropdown state (selected projection) is UI state only; it does not affect the canonical graph
 
 ---
 
-## Export Features
+## Overlay Toggles
 
 ### Status
-Pending
+Pending (depends on: stable graph contracts, traversal layer, projection layer)
+
+### Description
+Overlays are analytical lenses that apply to **any active projection**. They highlight issues, risks, or positive signals directly on top of whatever topology diagram is currently displayed. Unlike projections (which restructure the layout), overlays add colour, badges, and annotations without changing the underlying graph view.
+
+Overlays are toggled on/off independently. Multiple overlays can be active simultaneously.
+
+Planned overlays:
+- **BCP / DR** — highlights failover paths, paired region coverage, and single points of failure; surfaces gaps where HA is incomplete
+- **Governance** — highlights CAF/WAF alignment gaps, policy coverage, resource tagging compliance, and naming convention issues
+
+### Tasks
+- [ ] Define overlay interface contract (input: active graph slice; output: node/edge style patches)
+- [ ] Build overlay toggle toolbar in the Topology UI (visible above or beside the canvas)
+- [ ] Implement BCP/DR overlay (SPOF detection, paired region validation, failover link coverage)
+- [ ] Implement Governance overlay (CAF alignment, policy gaps, tagging coverage)
+
+### Architectural Notes
+- Overlays compose on top of baseline topology — they never mutate the canonical graph
+- Overlay state is UI state only; it is not stored in the graph layer
+- Overlays must remain explainable: each highlighted issue should carry a reason string
+- An overlay that cannot explain its finding is not ready to ship
+
+### Learning Goals
+- Projection system design
+- Graph slicing and filtering
+- View composition
+- Lazy rendering patterns
+
+---
+
+# Phase 6 — Export Systems
+
+Goal:
+Export topology views into reusable formats, including a native save/restore format for round-tripping AzMap diagrams.
+
+---
+
+## Native Diagram Save / Restore
+
+### Status
+Pending (depends on: stable graph contracts, import pipeline)
+
+### Description
+AzMap should be able to export its own canonical graph snapshot to a file, and later re-import it. This enables:
+- saving a point-in-time topology for later review or sharing
+- round-tripping a diagram without needing to re-import from Azure
+- a "session save" workflow for local-first use
+
+The format should be JSON with a versioned envelope (e.g. `.azmap.json` or `.azmap`). The file contains the canonical `GraphNode[]` and `GraphEdge[]` arrays — the same contracts used internally. It is **not** a React Flow layout snapshot; layout is always recomputed from the graph at load time.
+
+### Tasks
+- [ ] Define `.azmap` file format (versioned JSON envelope wrapping GraphNode[] + GraphEdge[])
+- [ ] Implement AzMap JSON export (serialize current graph to `.azmap` file)
+- [ ] Implement AzMap JSON import (parse `.azmap` file, validate schema, load into graph)
+- [ ] Add import/export UI for native format (Import and Export pages)
+- [ ] Version the format schema (so future schema changes can detect and migrate old files)
+
+### Architectural Notes
+- The `.azmap` format is NOT a layout file — it is a graph snapshot. Layout is always derived fresh.
+- Importing an `.azmap` file follows the same normalization path as any other import format.
+- Raw Azure payloads (`rawPayload` fields) should be preserved in the snapshot so the file retains full audit fidelity.
+
+### Learning Goals
+- Serialization design
+- Versioned file formats
+- Round-trip data fidelity
+- Import pipeline extension
+
+---
+
+## External Diagram Export
+
+### Status
+Pending (depends on: projection systems stable, layout deterministic)
 
 ### Tasks
 - [ ] Draw.io export
 - [ ] Visio export
 - [ ] Markdown topology export
 - [ ] API documentation generation
+- [ ] PNG/SVG canvas export (React Flow built-in, low effort)
 
 ### Learning Goals
 - Serialization
@@ -384,13 +509,16 @@ Enable analytical overlays on immutable topology.
 ## BCP / DR Overlay System
 
 ### Status
-Future
+Future (tracked under Phase 5 Overlay Toggles for the UI layer; this section covers the traversal engine behind it)
+
+### Description
+The BCP/DR overlay is a toggle that applies to any active diagram projection. It does not restructure the layout — it annotates the existing view with resilience signals. The traversal engine that powers it lives here in Phase 7.
 
 ### Tasks
-- [ ] Define overlay architecture
-- [ ] Implement failover simulation
-- [ ] Implement SPOF highlighting
-- [ ] Implement failover path visualization
+- [ ] Implement paired region validation traversal (detect regions without a pair present in the graph)
+- [ ] Implement SPOF detection traversal (identify resources with no failover counterpart)
+- [ ] Implement failover path tracing (follow FailsOverTo edges to build the complete DR chain)
+- [ ] Surface overlay output: node colour patches + annotation badges + reason strings
 
 ### Learning Goals
 - Simulation systems
@@ -423,13 +551,16 @@ Future
 ## Governance & Compliance Overlays
 
 ### Status
-Future
+Future (tracked under Phase 5 Overlay Toggles for the UI layer; this section covers the analysis engine behind it)
+
+### Description
+The Governance overlay is a toggle that applies to any active diagram projection. It annotates the existing view with compliance and alignment signals — it does not restructure the layout. The analysis engine that powers it lives here in Phase 7.
 
 ### Tasks
-- [ ] CAF alignment overlays
-- [ ] WAF alignment overlays
-- [ ] Azure Security Benchmark overlays
-- [ ] ISO/NIS2 overlay concepts
+- [ ] Implement CAF/WAF alignment analysis (resource naming conventions, tagging coverage, region pairing)
+- [ ] Implement Azure Security Benchmark checks (NSG coverage, public exposure detection)
+- [ ] Implement ISO/NIS2 overlay concepts (boundary identification, data residency signals)
+- [ ] Surface overlay output: node annotations + reason strings (every finding must be explainable)
 
 ### Learning Goals
 - Governance architecture
@@ -486,6 +617,7 @@ Future
 # Backlog
 
 ## Medium Priority
+- [ ] **Paired region validation** — given a topology graph, detect whether each Region node has a corresponding paired region present and raise a warning if HA coverage is incomplete. Azure paired regions: UK South ↔ UK West, East US ↔ West US, North Europe ↔ West Europe, etc. Implement as a graph analysis function in the traversal layer (Phase 4), surface as an overlay in the topology view.
 - [ ] Search system
 - [ ] Tag filtering
 - [ ] Saved projections

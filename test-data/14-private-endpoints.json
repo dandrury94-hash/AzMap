@@ -1,0 +1,170 @@
+[
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-data/providers/Microsoft.Network/privateEndpoints/pe-sql-prod",
+    "name": "pe-sql-prod",
+    "type": "Microsoft.Network/privateEndpoints",
+    "location": "uksouth",
+    "resourceGroup": "rg-data",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "data", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "subnet": {
+        "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-data/providers/Microsoft.Network/virtualNetworks/vnet-spoke-data/subnets/snet-pe"
+      },
+      "privateLinkServiceConnections": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-data/providers/Microsoft.Network/privateEndpoints/pe-sql-prod/privateLinkServiceConnections/pe-sql-prod-conn",
+          "name": "pe-sql-prod-conn",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "privateLinkServiceId": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-data/providers/Microsoft.Sql/servers/sql-prod-server",
+            "groupIds": ["sqlServer"],
+            "privateLinkServiceConnectionState": {
+              "status": "Approved",
+              "description": "Auto-approved",
+              "actionsRequired": "None"
+            }
+          }
+        }
+      ],
+      "customDnsConfigs": [
+        {
+          "fqdn": "sql-prod-server.database.windows.net",
+          "ipAddresses": ["10.2.2.10"]
+        }
+      ],
+      "networkInterfaces": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-data/providers/Microsoft.Network/networkInterfaces/pe-sql-prod-nic"
+        }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-security/providers/Microsoft.Network/privateEndpoints/pe-keyvault-prod",
+    "name": "pe-keyvault-prod",
+    "type": "Microsoft.Network/privateEndpoints",
+    "location": "uksouth",
+    "resourceGroup": "rg-security",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "security", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "subnet": {
+        "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-data/providers/Microsoft.Network/virtualNetworks/vnet-spoke-data/subnets/snet-pe"
+      },
+      "privateLinkServiceConnections": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-security/providers/Microsoft.Network/privateEndpoints/pe-keyvault-prod/privateLinkServiceConnections/pe-kv-prod-conn",
+          "name": "pe-kv-prod-conn",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "privateLinkServiceId": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-security/providers/Microsoft.KeyVault/vaults/kv-prod-001",
+            "groupIds": ["vault"],
+            "privateLinkServiceConnectionState": {
+              "status": "Approved",
+              "description": "Auto-approved",
+              "actionsRequired": "None"
+            }
+          }
+        }
+      ],
+      "customDnsConfigs": [
+        {
+          "fqdn": "kv-prod-001.vault.azure.net",
+          "ipAddresses": ["10.2.2.11"]
+        }
+      ],
+      "networkInterfaces": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-security/providers/Microsoft.Network/networkInterfaces/pe-keyvault-prod-nic"
+        }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-data/providers/Microsoft.Network/privateEndpoints/pe-storage-prod",
+    "name": "pe-storage-prod",
+    "type": "Microsoft.Network/privateEndpoints",
+    "location": "uksouth",
+    "resourceGroup": "rg-data",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "data", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "subnet": {
+        "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-data/providers/Microsoft.Network/virtualNetworks/vnet-spoke-data/subnets/snet-pe"
+      },
+      "privateLinkServiceConnections": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-data/providers/Microsoft.Network/privateEndpoints/pe-storage-prod/privateLinkServiceConnections/pe-storage-prod-conn",
+          "name": "pe-storage-prod-conn",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "privateLinkServiceId": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-data/providers/Microsoft.Storage/storageAccounts/stprodlogs001",
+            "groupIds": ["blob"],
+            "privateLinkServiceConnectionState": {
+              "status": "Approved",
+              "description": "Auto-approved",
+              "actionsRequired": "None"
+            }
+          }
+        }
+      ],
+      "customDnsConfigs": [
+        {
+          "fqdn": "stprodlogs001.blob.core.windows.net",
+          "ipAddresses": ["10.2.2.12"]
+        }
+      ],
+      "networkInterfaces": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-data/providers/Microsoft.Network/networkInterfaces/pe-storage-prod-nic"
+        }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-data/providers/Microsoft.Network/privateEndpoints/pe-cosmos-prod",
+    "name": "pe-cosmos-prod",
+    "type": "Microsoft.Network/privateEndpoints",
+    "location": "uksouth",
+    "resourceGroup": "rg-data",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "data", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "subnet": {
+        "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-data/providers/Microsoft.Network/virtualNetworks/vnet-spoke-data/subnets/snet-cosmos"
+      },
+      "privateLinkServiceConnections": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-data/providers/Microsoft.Network/privateEndpoints/pe-cosmos-prod/privateLinkServiceConnections/pe-cosmos-prod-conn",
+          "name": "pe-cosmos-prod-conn",
+          "properties": {
+            "provisioningState": "Succeeded",
+            "privateLinkServiceId": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-data/providers/Microsoft.DocumentDB/databaseAccounts/cosmos-prod-001",
+            "groupIds": ["Sql"],
+            "privateLinkServiceConnectionState": {
+              "status": "Approved",
+              "description": "Auto-approved",
+              "actionsRequired": "None"
+            }
+          }
+        }
+      ],
+      "customDnsConfigs": [
+        {
+          "fqdn": "cosmos-prod-001.documents.azure.com",
+          "ipAddresses": ["10.2.4.10"]
+        }
+      ],
+      "networkInterfaces": [
+        {
+          "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-data/providers/Microsoft.Network/networkInterfaces/pe-cosmos-prod-nic"
+        }
+      ]
+    }
+  }
+]

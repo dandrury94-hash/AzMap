@@ -1,0 +1,146 @@
+[
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/connections/conn-hub-to-london",
+    "name": "conn-hub-to-london",
+    "type": "Microsoft.Network/connections",
+    "location": "uksouth",
+    "resourceGroup": "rg-network",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "network", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "connectionType": "IPsec",
+      "connectionStatus": "Connected",
+      "enableBgp": true,
+      "useLocalAzureIpAddress": false,
+      "usePolicyBasedTrafficSelectors": false,
+      "ingressBytesTransferred": 1073741824,
+      "egressBytesTransferred": 536870912,
+      "virtualNetworkGateway1": {
+        "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworkGateways/vpngw-hub"
+      },
+      "localNetworkGateway2": {
+        "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/localNetworkGateways/lgw-onprem-london"
+      },
+      "ipsecPolicies": [
+        {
+          "saLifeTimeSeconds": 3600,
+          "saDataSizeKilobytes": 102400000,
+          "ipsecEncryption": "AES256",
+          "ipsecIntegrity": "SHA256",
+          "ikeEncryption": "AES256",
+          "ikeIntegrity": "SHA384",
+          "dhGroup": "DHGroup24",
+          "pfsGroup": "PFS24"
+        }
+      ],
+      "trafficSelectorPolicies": [],
+      "dpdTimeoutSeconds": 45
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/connections/conn-hub-to-manchester",
+    "name": "conn-hub-to-manchester",
+    "type": "Microsoft.Network/connections",
+    "location": "uksouth",
+    "resourceGroup": "rg-network",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "network", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "connectionType": "IPsec",
+      "connectionStatus": "Connected",
+      "enableBgp": false,
+      "useLocalAzureIpAddress": false,
+      "usePolicyBasedTrafficSelectors": false,
+      "ingressBytesTransferred": 536870912,
+      "egressBytesTransferred": 268435456,
+      "virtualNetworkGateway1": {
+        "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworkGateways/vpngw-hub"
+      },
+      "localNetworkGateway2": {
+        "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/localNetworkGateways/lgw-onprem-manchester"
+      },
+      "ipsecPolicies": [
+        {
+          "saLifeTimeSeconds": 3600,
+          "saDataSizeKilobytes": 102400000,
+          "ipsecEncryption": "AES256",
+          "ipsecIntegrity": "SHA256",
+          "ikeEncryption": "AES256",
+          "ikeIntegrity": "SHA384",
+          "dhGroup": "DHGroup24",
+          "pfsGroup": "PFS24"
+        }
+      ],
+      "trafficSelectorPolicies": [],
+      "dpdTimeoutSeconds": 45
+    }
+  },
+  {
+    "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/connections/conn-dr-to-onprem",
+    "name": "conn-dr-to-onprem",
+    "type": "Microsoft.Network/connections",
+    "location": "ukwest",
+    "resourceGroup": "rg-network-dr",
+    "subscriptionId": "22222222-2222-2222-2222-222222222222",
+    "tags": { "env": "dr", "team": "network", "costCenter": "CC002" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "connectionType": "IPsec",
+      "connectionStatus": "Connected",
+      "enableBgp": false,
+      "useLocalAzureIpAddress": false,
+      "usePolicyBasedTrafficSelectors": false,
+      "ingressBytesTransferred": 134217728,
+      "egressBytesTransferred": 67108864,
+      "virtualNetworkGateway1": {
+        "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/virtualNetworkGateways/vpngw-dr"
+      },
+      "localNetworkGateway2": {
+        "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/localNetworkGateways/lgw-onprem-dr"
+      },
+      "ipsecPolicies": [
+        {
+          "saLifeTimeSeconds": 3600,
+          "saDataSizeKilobytes": 102400000,
+          "ipsecEncryption": "AES256",
+          "ipsecIntegrity": "SHA256",
+          "ikeEncryption": "AES256",
+          "ikeIntegrity": "SHA384",
+          "dhGroup": "DHGroup24",
+          "pfsGroup": "PFS24"
+        }
+      ],
+      "trafficSelectorPolicies": [],
+      "dpdTimeoutSeconds": 45
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/connections/conn-hub-to-hub-dr",
+    "name": "conn-hub-to-hub-dr",
+    "type": "Microsoft.Network/connections",
+    "location": "uksouth",
+    "resourceGroup": "rg-network",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "network", "costCenter": "CC001" },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "connectionType": "Vnet2Vnet",
+      "connectionStatus": "Connected",
+      "enableBgp": true,
+      "useLocalAzureIpAddress": false,
+      "usePolicyBasedTrafficSelectors": false,
+      "ingressBytesTransferred": 2147483648,
+      "egressBytesTransferred": 2147483648,
+      "virtualNetworkGateway1": {
+        "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworkGateways/vpngw-hub"
+      },
+      "virtualNetworkGateway2": {
+        "id": "/subscriptions/22222222-2222-2222-2222-222222222222/resourceGroups/rg-network-dr/providers/Microsoft.Network/virtualNetworkGateways/vpngw-dr"
+      },
+      "ipsecPolicies": [],
+      "trafficSelectorPolicies": []
+    }
+  }
+]

@@ -1,0 +1,129 @@
+[
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-apps/providers/Microsoft.Web/sites/app-api-prod",
+    "name": "app-api-prod",
+    "type": "Microsoft.Web/sites",
+    "location": "uksouth",
+    "resourceGroup": "rg-apps",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "apps", "costCenter": "CC001" },
+    "kind": "app,linux",
+    "identity": {
+      "type": "UserAssigned",
+      "userAssignedIdentities": {
+        "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-apps/providers/Microsoft.ManagedIdentity/userAssignedIdentities/mi-appservice-prod": {
+          "principalId": "aaaaaaaa-0002-0002-0002-aaaaaaaaaaaa",
+          "clientId": "bbbbbbbb-0002-0002-0002-bbbbbbbbbbbb"
+        }
+      }
+    },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "state": "Running",
+      "serverFarmId": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-apps/providers/Microsoft.Web/serverFarms/asp-prod-001",
+      "reserved": true,
+      "isXenon": false,
+      "hyperV": false,
+      "hostNameSslStates": [
+        {
+          "name": "app-api-prod.azurewebsites.net",
+          "sslState": "Disabled",
+          "hostType": "Standard"
+        }
+      ],
+      "hostNames": ["app-api-prod.azurewebsites.net"],
+      "httpsOnly": true,
+      "virtualNetworkSubnetId": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app/subnets/snet-appservice",
+      "siteConfig": {
+        "linuxFxVersion": "DOTNETCORE|8.0",
+        "alwaysOn": true,
+        "vnetRouteAllEnabled": true,
+        "minTlsVersion": "1.2",
+        "http20Enabled": true,
+        "remoteDebuggingEnabled": false,
+        "requestTracingEnabled": true,
+        "detailedErrorLoggingEnabled": true,
+        "appSettings": [],
+        "connectionStrings": [],
+        "healthCheckPath": "/health"
+      }
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-apps/providers/Microsoft.Web/sites/app-frontend-prod",
+    "name": "app-frontend-prod",
+    "type": "Microsoft.Web/sites",
+    "location": "uksouth",
+    "resourceGroup": "rg-apps",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "apps", "costCenter": "CC001" },
+    "kind": "app,linux",
+    "identity": {
+      "type": "UserAssigned",
+      "userAssignedIdentities": {
+        "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-apps/providers/Microsoft.ManagedIdentity/userAssignedIdentities/mi-appservice-prod": {
+          "principalId": "aaaaaaaa-0002-0002-0002-aaaaaaaaaaaa",
+          "clientId": "bbbbbbbb-0002-0002-0002-bbbbbbbbbbbb"
+        }
+      }
+    },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "state": "Running",
+      "serverFarmId": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-apps/providers/Microsoft.Web/serverFarms/asp-prod-001",
+      "reserved": true,
+      "isXenon": false,
+      "hyperV": false,
+      "hostNames": ["app-frontend-prod.azurewebsites.net"],
+      "httpsOnly": true,
+      "virtualNetworkSubnetId": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app/subnets/snet-appservice",
+      "siteConfig": {
+        "linuxFxVersion": "NODE|20-lts",
+        "alwaysOn": true,
+        "vnetRouteAllEnabled": true,
+        "minTlsVersion": "1.2",
+        "http20Enabled": true,
+        "remoteDebuggingEnabled": false,
+        "healthCheckPath": "/health"
+      }
+    }
+  },
+  {
+    "id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-apps/providers/Microsoft.Web/sites/func-processor-prod",
+    "name": "func-processor-prod",
+    "type": "Microsoft.Web/sites",
+    "location": "uksouth",
+    "resourceGroup": "rg-apps",
+    "subscriptionId": "11111111-1111-1111-1111-111111111111",
+    "tags": { "env": "prod", "team": "apps", "costCenter": "CC001" },
+    "kind": "functionapp,linux",
+    "identity": {
+      "type": "UserAssigned",
+      "userAssignedIdentities": {
+        "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-apps/providers/Microsoft.ManagedIdentity/userAssignedIdentities/mi-pipeline-prod": {
+          "principalId": "aaaaaaaa-0004-0004-0004-aaaaaaaaaaaa",
+          "clientId": "bbbbbbbb-0004-0004-0004-bbbbbbbbbbbb"
+        }
+      }
+    },
+    "properties": {
+      "provisioningState": "Succeeded",
+      "state": "Running",
+      "serverFarmId": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-apps/providers/Microsoft.Web/serverFarms/asp-prod-001",
+      "reserved": true,
+      "isXenon": false,
+      "hyperV": false,
+      "hostNames": ["func-processor-prod.azurewebsites.net"],
+      "httpsOnly": true,
+      "virtualNetworkSubnetId": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-spoke-app/subnets/snet-appservice",
+      "siteConfig": {
+        "linuxFxVersion": "DOTNETCORE|8.0",
+        "alwaysOn": true,
+        "vnetRouteAllEnabled": true,
+        "minTlsVersion": "1.2",
+        "http20Enabled": true,
+        "remoteDebuggingEnabled": false
+      }
+    }
+  }
+]
